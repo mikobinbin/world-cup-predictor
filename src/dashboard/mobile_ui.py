@@ -634,8 +634,8 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
     <div class="calibration">
       <div class="cal-bd">
         <b>姆巴佩 / Mbappe (France)</b>: 皇马1-5阿森纳半决赛淘汰 → <span style="color:var(--rd)">-0.58心态分</span> → Brazil2014框架<br><br>
-        <b>登贝莱 / Dembele (France)</b>: PSG 5-0 Inter决赛进球 → <span style="color:var(--gr)">+0.62心态分</span> → France2018框架<br><br>
-        <b>劳塔罗 / Lautaro (Argentina)</b>: Inter决赛进球 → <span style="color:var(--gr)">+0.69心态分</span> → Brazil2014框架<br><br>
+        <b>登贝莱 / Dembele (France)</b>: PSG 5-0 Inter决赛大胜进球 → <span style="color:var(--gr)">+0.71心态分</span> → France2018框架<br><br>
+        <b>劳塔罗 / Lautaro (Argentina)</b>: Inter 0-5惨败但决赛进球 → <span style="color:var(--rd)">-0.53心态分</span> → Brazil2014框架<br><br>
         <b>调参结果</b>: France shift <span style="color:var(--gr)">+2.1%</span>, Argentina shift <span style="color:var(--rd)">-1.4%</span>, Brazil shift <span style="color:var(--rd)">-3.7%</span>
       </div>
     </div>
