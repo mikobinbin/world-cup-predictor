@@ -833,25 +833,49 @@ class MysticFactorEngine:
 
             favorite_curse = self._calc_favorite_curse(elo, is_defending)
 
-            # ── 欧冠决赛心态信号叠加 ─────────────────────────────
-            # 自动从ucl_final_mentality模块获取该国球员数据
+            # ── 欧冠心态信号 → mystic 因子映射 ────────────────────
+            # 核心原则：正心态信号应减少 suppressors（压分），而非增加
+            # Brazil2014 参数（崩溃型）：reversal_risk=+0.35, favorite_curse=+0.85 → 直接加 = 压分
+            # France2018 参数（顺势型）：reversal_risk=-0.15, soft_power=+0.35 → 负值 = boost
+            # UCL 赢球心态 → 减少 favorite_curse 和 gs_volatility（压力减轻）
+            # UCL 输球心态 → 增加 reversal_risk（不稳定性增加）
             ucl_bonus = {}
             if UCL_INTEGRATION_AVAILABLE:
                 ucl_bonus = compute_country_ucl_mentality_bonus(country)
 
-            # 支持手动override（优先级最高）
+            # 手动 override（优先级最高）：允许外部传入精确的因子偏移量
             if ucl_mentality_overrides and country in ucl_mentality_overrides:
                 override = ucl_mentality_overrides[country]
-                contrarian += override.get("contrarian_add", 0.0)
-                gs_volatility += override.get("reversal_risk_add", 0.0) * 0.5
-                knockout_unc += override.get("soft_power_add", 0.0) * 0.5
-                favorite_curse += override.get("favorite_curse_add", 0.0)
+                contrarian    += override.get("contrarian", 0.0)
+                gs_volatility += override.get("gs_volatility", 0.0)
+                knockout_unc  += override.get("knockout_unc", 0.0)
+                favorite_curse += override.get("favorite_curse", 0.0)
             elif ucl_bonus and ucl_bonus.get("signal_count", 0) > 0:
-                # 用自动获取的欧冠心态数据修正各因子
-                contrarian += ucl_bonus.get("contrarian_add", 0.0) * 0.5
-                gs_volatility += ucl_bonus.get("reversal_risk_add", 0.0) * 0.3
-                knockout_unc += ucl_bonus.get("soft_power_add", 0.0) * 0.4
-                favorite_curse += ucl_bonus.get("favorite_curse_add", 0.0) * 0.6
+                # 解读 wc_total_adjustment（所有球员世界杯概率修正之和）的含义：
+                #  正值 → 球员心态强势（赢得决赛/关键表现） → 利好世界杯
+                #  负值 → 球员心态受压（输掉决赛/表现失常） → 利空世界杯
+                #
+                # mystic suppressors 的运作方式：
+                #   contrarian < 0 (负) = 弱队被低估 → 有利
+                #   gs_volatility < 0 (负) = 稳定 → 有利
+                #   favorite_curse < 0 (负) = 强队被诅咒压制 → 利好强队
+                #   (正值为相反效果)
+                #
+                # 心态强势（正 wc_total）时：
+                #   → 减少 favorite_curse 正值（减少对强队的压制）
+                #   → 增加 contrarian 负值（更坚定看好自己，弱队更被低估）
+                #   → 减少 gs_volatility 正值（减少不稳定性）
+                #
+                wc_total = ucl_bonus.get("wc_total_adjustment", 0.0)
+
+                # 强队心态强势 → 热门诅咒减轻（强队更相信自己能赢）
+                favorite_curse += (-wc_total) * 0.60
+                # 心态强势 → 自我怀疑减少 → contrarian 更负（更不被看好时反而更自信）
+                contrarian += (-wc_total) * 0.20
+                # 心态强势 → 比赛稳定性提升
+                gs_volatility += (-wc_total) * 0.25
+                # 心态强势 → 淘汰赛信心
+                knockout_unc += (-wc_total) * 0.10
             # ── 叠加完成 ───────────────────────────────────────
 
             total_shift = contrarian + gs_volatility + knockout_unc + favorite_curse
