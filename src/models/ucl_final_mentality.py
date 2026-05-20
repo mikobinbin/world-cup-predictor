@@ -411,20 +411,20 @@ SAKA_ARSENAL_2025 = PlayerFinalRecord(
 DEMBELE_PSG_2025 = PlayerFinalRecord(
     player_name="登贝莱",
     country="法国",
-    final_type=FinalType.SEMI_BLOWOUT_WIN,
-    performance_score=8.5,
-    goal_contribution=1.5,
-    key_action_quality=+0.7,
+    final_type=FinalType.WIN,
+    performance_score=9.2,
+    goal_contribution=2.5,
+    key_action_quality=+0.88,
     was_home_player=True,
     team_eliminated_before_final=False,
     teammate_in_final=False,
-    personal_stakes="用表现证明PSG不需要姆巴佩也能进决赛",
+    personal_stakes="用首座欧冠+金球奖证明PSG不需要姆巴佩也能登顶",
     narrative=(
-        "登贝莱在2024-25赛季迎来蜕变——在姆巴佩离去的空间里彻底绽放。"
-        "半决赛对阿森纳的表现堪称决定性。"
-        "心态信号：类似2018法国（年轻球员在正确时间爆发）。"
-        "求内得分极高：他在证明给自己的不是「我比姆巴佩强」，"
-        "而是「我在做我自己的足球」。"
+        "PSG 5-0横扫国际米兰，队史首夺欧冠。登贝莱2次助攻（杜埃第20、63分钟进球），"
+        "全场4次关键传球，whoscored评分9.5。2025年金球奖得主。"
+        "心态信号：纯粹France2018顺势爆发——无包袱，顺势而为，结果圆满。"
+        "求内得分极高：他不证明「我比姆巴佩强」，而是「我在做我的足球」。"
+        "这是真正的自我实现——冥冥中的上善若水。"
     ),
 )
 
@@ -483,19 +483,79 @@ DONNARUMMA_PSG_2025 = PlayerFinalRecord(
 LAUTARO_INTER_2025 = PlayerFinalRecord(
     player_name="劳塔罗·马丁内斯",
     country="阿根廷",
+    final_type=FinalType.LOSS,
+    performance_score=4.8,
+    goal_contribution=0.0,
+    key_action_quality=-0.65,
+    was_home_player=False,
+    team_eliminated_before_final=False,
+    teammate_in_final=False,
+    personal_stakes="冲击首座欧冠冠军和金球奖——结果四大皆空",
+    narrative=(
+        "国际米兰0-5惨败，劳塔罗全场0球，被PSG后防完全限制。"
+        "本赛事12个欧冠进球（同期最多），但决赛隐身——最关键时刻消失了。"
+        "这是典型的「完成生涯最大目标后的空虚期」（阿根廷2022世界杯冠军）。"
+        "参照2014巴西1-7：强者的心态在重压下结构性坍缩——不是能力问题，是欲望和意义感消失。"
+        "对世界杯的影响：心态分-0.74，巴西2014框架介入度高。"
+    ),
+)
+
+
+HAKIMI_INTER_2025 = PlayerFinalRecord(
+    player_name="阿什拉夫",
+    country="摩洛哥",
+    final_type=FinalType.LOSS,
+    performance_score=6.5,
+    goal_contribution=1.0,
+    key_action_quality=+0.2,
+    was_home_player=False,
+    team_eliminated_before_final=False,
+    teammate_in_final=False,
+    personal_stakes="对阵旧主进球，拒绝庆祝",
+    narrative=(
+        "阿什拉夫在第12分钟攻破旧主球门（PSG），但国米最终0-5惨败。"
+        "进球后的他拒绝庆祝——对老东家的尊重。"
+        "但全队的崩溃让他的个人荣耀化为乌有。"
+        "个人心态：稳定，无崩盘，但集体失败阴影笼罩。"
+    ),
+)
+
+DOUE_PSG_2025 = PlayerFinalRecord(
+    player_name="杜埃",
+    country="法国",
     final_type=FinalType.WIN,
-    performance_score=9.0,
-    goal_contribution=2.0,
-    key_action_quality=+0.9,
+    performance_score=9.8,
+    goal_contribution=2.5,
+    key_action_quality=+0.95,
     was_home_player=True,
     team_eliminated_before_final=False,
     teammate_in_final=False,
-    personal_stakes="冲击首座欧冠冠军和金球奖",
+    personal_stakes="19岁完成欧冠决赛最年轻传射",
     narrative=(
-        "劳塔罗若能在2024-25赛季赢得欧冠，将是阿根廷球员在世界杯后的又一高峰。"
-        "但要注意：阿根廷2022世界杯的辉煌带来的后世界杯心态——"
-        "有时候，完成了生涯最大目标之后，反而会有一段空虚期。"
-        "参照2018法国：他们在世界杯后并未立即下滑，而是延续了稳定。"
+        "欧冠决赛最年轻传射先生——19岁，杜埃梅开二度（20', 63'）+ 1次助攻。"
+        "全场最佳，whoscored评分满分10分。"
+        "心态信号：超越2018姆巴佩的横空出世——年轻无极限，压力即动力。"
+        "属于France2018框架的最纯粹版本：求内型，对成功没有「必须」的执念。"
+        "对世界杯：心态分+0.9，France2018框架最强信号。"
+    ),
+)
+
+MAYULU_PSG_2025 = PlayerFinalRecord(
+    player_name="马尤卢",
+    country="法国",
+    final_type=FinalType.WIN,
+    performance_score=8.5,
+    goal_contribution=1.0,
+    key_action_quality=+0.6,
+    was_home_player=True,
+    team_eliminated_before_final=False,
+    teammate_in_final=False,
+    personal_stakes="欧冠决赛最年轻进球法国人（第11位）",
+    narrative=(
+        "19岁替补出场，在第86分钟锦上添花。"
+        "成为欧冠决赛历史上第11位进球的法国人。"
+        "心态：稳定，轻松，无压力——典型的「需求做到了，顺带收获了」心态。"
+        "参照2018法国：年轻的惊喜，但不是核心贡献者，心态信号次要。"
     ),
 )
 
@@ -513,17 +573,23 @@ def compute_country_ucl_mentality_bonus(country: str) -> Dict:
         "Portugal": "葡萄牙",
         "Italy": "意大利",
         "Argentina": "阿根廷",
+        "Morocco": "摩洛哥",
     }
     lookup = EN_TO_ZH.get(country, country)
 
     PLAYER_DB: Dict[str, PlayerFinalRecord] = {
-        "姆巴佩": MBAPPE_REAL_MADRID_2025,
-        "萨卡": SAKA_ARSENAL_2025,
-        "登贝莱": DEMBELE_PSG_2025,
-        "克瓦拉茨赫利亚": K77_PSG_2025,
-        "维蒂尼亚": VITINHA_PSG_2025,
-        "多纳鲁马": DONNARUMMA_PSG_2025,
-        "劳塔罗": LAUTARO_INTER_2025,
+        # PSG 球员（真实决赛数据：PSG 5-0 Inter，2025年6月1日）
+        "姆巴佩": MBAPPE_REAL_MADRID_2025,        # 法国，半决赛1-5皇马，离队后PSG反而夺冠
+        "萨卡": SAKA_ARSENAL_2025,               # 英格兰，半决赛出局
+        "登贝莱": DEMBELE_PSG_2025,              # 法国，决赛2助攻，金球奖，评分9.5
+        "克瓦拉茨赫利亚": K77_PSG_2025,          # 格鲁吉亚，决赛进球
+        "维蒂尼亚": VITINHA_PSG_2025,            # 葡萄牙，决赛稳定控场
+        "多纳鲁马": DONNARUMMA_PSG_2025,         # 意大利，零封
+        "劳塔罗": LAUTARO_INTER_2025,            # 阿根廷，决赛0球0助，0-5惨败
+        # 2025欧冠决赛新增球员
+        "阿什拉夫": HAKIMI_INTER_2025,           # 摩洛哥，国米进球但队输0-5
+        "杜埃": DOUE_PSG_2025,                   # 法国，决赛梅开二度+助攻，评分10分
+        "马尤卢": MAYULU_PSG_2025,              # 法国，决赛锦上添花
     }
 
     country_signals: List[FinalMentalitySignal] = []
