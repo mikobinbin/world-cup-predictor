@@ -291,272 +291,709 @@ def get_ucl_card(country: str) -> str:
 
 # ── UI 构建 ──────────────────────────────────────────────
 def build_ui():
+    # Linear Design System — Hermes Agent Implementation
+    # Primary: Inter | Mono: JetBrains Mono
+    # Background: #08090a | Surfaces: #0f1011 / #191a1b / #28282c
+    # Accent: #7170ff (violet) | Success: #10b981 | Text: #f7f8f8 / #d0d6e0 / #8a8f98
+
     with gr.Blocks(
         title="🏆 世界杯预测",
-        theme=gr.themes.Soft(
-            primary_hue="yellow",
-            secondary_hue="gray",
-            neutral_hue="gray",
-            text_size=gr.themes.sizes.text_lg,
+        theme=gr.themes.Default(
+            primary_hue=260,  # indigo-violet
+            gray_hue=220,
         ).set(
-            body_background_fill="#0d0d0f",
-            body_text_color="#e6edf3",
-            block_background_fill="#161b22",
-            block_border_color="#30363d",
-            block_label_background_fill="#1c2128",
-            block_label_text_color="#d4af37",
-            button_primary_background_fill="#d4af37",
-            button_primary_text_color="#0d0d0f",
-            button_secondary_background_fill="#21262d",
-            button_secondary_text_color="#e6edf3",
-            input_background_fill="#161b22",
-            input_border_color="#30363d",
+            # Core surfaces
+            body_background_fill="#08090a",
+            body_text_color="#f7f8f8",
+            block_background_fill="#0f1011",
+            block_border_color="rgba(255,255,255,0.08)",
+            block_label_background_fill="#191a1b",
+            block_label_text_color="#d0d6e0",
+            block_title_text_color="#f7f8f8",
+            # Input
+            input_background_fill="rgba(255,255,255,0.03)",
+            input_border_color="rgba(255,255,255,0.08)",
+            input_placeholder_color="#62666d",
+            # Buttons
+            button_primary_background_fill="#7170ff",
+            button_primary_text_color="#ffffff",
+            button_primary_hover_background_fill="#828fff",
+            button_secondary_background_fill="rgba(255,255,255,0.05)",
+            button_secondary_text_color="#d0d6e0",
+            button_secondary_hover_background_fill="rgba(255,255,255,0.08)",
+            # Sizing
+            border_radius_sm="6px",
+            border_radius_md="8px",
+            border_radius_lg="12px",
+            spacing_sm="8px",
+            spacing_md="16px",
+            spacing_lg="24px",
+            text_sm="13px",
+            text_md="15px",
+            text_lg="17px",
+            text_xl="20px",
         ),
         css="""
+        /* ── Linear Design System ── */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;510;590;600&display=swap');
+
+        :root {
+            --bg-base: #08090a;
+            --bg-panel: #0f1011;
+            --bg-surface: #191a1b;
+            --bg-elevated: #28282c;
+            --text-primary: #f7f8f8;
+            --text-secondary: #d0d6e0;
+            --text-muted: #8a8f98;
+            --text-dim: #62666d;
+            --accent: #7170ff;
+            --accent-hover: #828fff;
+            --accent-glow: rgba(113,112,255,0.15);
+            --green: #10b981;
+            --green-dim: rgba(16,185,129,0.12);
+            --red: #f85149;
+            --red-dim: rgba(248,81,73,0.12);
+            --border: rgba(255,255,255,0.08);
+            --border-subtle: rgba(255,255,255,0.05);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-pill: 9999px;
+            --shadow-card: 0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.4);
+            --shadow-elevated: 0 8px 32px rgba(0,0,0,0.6);
+        }
+
+        /* Base */
+        * { font-family: 'Inter', system-ui, -apple-system, sans-serif !important; box-sizing: border-box; }
+        body, html { background: var(--bg-base) !important; color: var(--text-primary) !important; }
         .gradio-container { max-width: 100% !important; padding: 0 !important; }
-        .main { padding: 8px !important; }
-        h1, h2, h3 { color: #d4af37 !important; }
-        .team-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 2px; }
+
+        /* Header */
+        .header-block {
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 20px 20px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        .header-title {
+            font-size: 22px;
+            font-weight: 590;
+            letter-spacing: -0.4px;
+            color: var(--text-primary);
+            margin: 0 0 4px;
+        }
+        .header-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin: 0;
+        }
+        .header-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid rgba(113,112,255,0.25);
+            border-radius: var(--radius-pill);
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 510;
+            margin-top: 8px;
+        }
+
+        /* Tab Navigation — Linear pill style */
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-subtle);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tab-nav::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: var(--radius-pill);
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 510;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+        .tab-btn.active {
+            background: rgba(113,112,255,0.15);
+            border-color: rgba(113,112,255,0.3);
+            color: var(--accent);
+        }
+
+        /* Content area */
+        .content-area { padding: 16px 16px 80px; }
+
+        /* Cards — Linear style */
+        .lcards { display: flex; flex-direction: column; gap: 8px; }
+        .lcard {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
             padding: 14px 16px;
+            transition: background 0.12s ease, border-color 0.12s ease;
+        }
+        .lcard:hover { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.12); }
+        .lcard-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .lcard-left { display: flex; align-items: center; gap: 12px; }
+        .flag-emoji { font-size: 1.5rem; line-height: 1; }
+        .team-name {
+            font-size: 15px;
+            font-weight: 590;
+            color: var(--text-primary);
+            letter-spacing: -0.1px;
+        }
+        .team-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .prob-display { text-align: right; }
+        .prob-number {
+            font-size: 1.65rem;
+            font-weight: 510;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .prob-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+        /* Shift badge — Linear pill */
+        .lcard-shift {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 510;
+        }
+        .shift-up { background: var(--green-dim); color: var(--green); }
+        .shift-down { background: var(--red-dim); color: var(--red); }
+        .shift-flat { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+
+        /* Tags row */
+        .lcard-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .ltag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .ltag-accent { background: var(--accent-glow); color: var(--accent); border-color: rgba(113,112,255,0.2); }
+        .ltag-green { background: var(--green-dim); color: var(--green); border-color: rgba(16,185,129,0.2); }
+        .ltag-red { background: var(--red-dim); color: var(--red); border-color: rgba(248,81,73,0.2); }
+
+        /* Verdict badge */
+        .verdict-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 590;
+        }
+        .verdict-up { background: var(--green-dim); color: var(--green); }
+        .verdict-down { background: var(--red-dim); color: var(--red); }
+        .verdict-flat { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); }
+
+        /* Section headers */
+        .section-label {
+            font-size: 11px;
+            font-weight: 590;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin: 0 0 10px;
+            padding-left: 2px;
+        }
+
+        /* Detail card */
+        .detail-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .detail-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .detail-flag { font-size: 2.2rem; }
+        .detail-title { font-size: 20px; font-weight: 590; letter-spacing: -0.3px; }
+        .detail-elo { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+        .detail-body { padding: 16px 20px; }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-key { font-size: 13px; color: var(--text-muted); }
+        .detail-val { font-size: 14px; font-weight: 510; color: var(--text-primary); }
+        .detail-val-accent { color: var(--accent); }
+        .detail-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .detail-section-title {
+            font-size: 12px;
+            font-weight: 590;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 12px;
+        }
+
+        /* UCL Player Card */
+        .player-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
             margin-bottom: 8px;
         }
-        .prob-big { font-size: 2rem; font-weight: 700; color: #d4af37; }
-        .prob-shift { font-size: 1rem; }
-        .shift-up { color: #3fb950; }
-        .shift-down { color: #f85149; }
-        .shift-flat { color: #8b949e; }
-        .elo-tag { background: #21262d; border-radius: 6px; padding: 2px 8px; font-size: 0.85rem; }
-        .verdict-badge {
+        .player-name { font-size: 14px; font-weight: 590; color: var(--text-primary); }
+        .player-score { font-size: 1.4rem; font-weight: 510; }
+        .score-pos { color: var(--green); }
+        .score-neg { color: var(--red); }
+        .score-neu { color: var(--text-muted); }
+        .player-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .player-framework {
             display: inline-block;
-            border-radius: 20px;
-            padding: 2px 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            padding: 2px 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 6px;
         }
-        .verdict-up { background: #1f3a1f; color: #3fb950; }
-        .verdict-down { background: #3a1f1f; color: #f85149; }
-        .verdict-flat { background: #2a2a2a; color: #8b949e; }
-        .factor-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #21262d; }
-        .section-header { color: #d4af37; font-size: 1.1rem; font-weight: 700; margin: 12px 0 6px; }
-        .player-signal {
-            background: #1c2128;
-            border-left: 3px solid #d4af37;
+        .player-narrative { font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+
+        /* Dropdown styling */
+        .gradio-dropdown .selected-value, .gradio-dropdown option {
+            background: var(--bg-surface) !important;
+            color: var(--text-primary) !important;
+        }
+        select, .gr-dropdown {
+            background: var(--bg-surface) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px 16px 32px;
+            font-size: 11px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        .footer a { color: var(--text-muted); text-decoration: none; }
+        .footer .accent { color: var(--accent); }
+
+        /* Dropdown/select overrides */
+        .gr-box { background: var(--bg-surface) !important; border-color: var(--border) !important; }
+
+        /* Stat grid */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+        .stat-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
             padding: 10px 12px;
-            margin: 8px 0;
-            border-radius: 0 8px 8px 0;
+            text-align: center;
         }
-        .mind-score { font-size: 1.4rem; font-weight: 700; }
-        .mind-pos { color: #3fb950; }
-        .mind-neg { color: #f85149; }
-        .mind-neu { color: #8b949e; }
+        .stat-val { font-size: 1.1rem; font-weight: 510; color: var(--text-primary); }
+        .stat-lbl { font-size: 10px; color: var(--text-dim); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Iching display */
+        .iching-hex {
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 8px 14px;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* Full table */
+        .full-table { width: 100%; border-collapse: collapse; }
+        .full-table th {
+            font-size: 10px;
+            font-weight: 590;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .full-table td {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .full-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .rank-num { color: var(--text-dim); font-weight: 510; width: 20px; }
         """,
     ) as demo:
-        gr.Markdown(
-            "<div style='text-align:center;padding:12px 0 4px'>"
-            "<h1 style='color:#d4af37;margin:0'>🏆 世界杯冠军预测</h1>"
-            "<p style='color:#8b949e;margin:4px 0 0'>2026美加墨 · 玄学+数据双轨分析</p>"
-            "<p style='color:#4d5566;font-size:0.85rem'>含欧冠决赛心态信号 · 更新于 "
-            + datetime.now().strftime("%m-%d %H:%M") + "</p>"
-            "</div>",
-            elem_classes=["main"],
-        )
+        # ── Header ───────────────────────────────────────────────────────────
+        gr.HTML("""
+        <div class="header-block">
+            <div class="header-title">🏆 世界杯冠军预测</div>
+            <div class="header-sub">2026 美加墨世界杯 · 玄学 + 数据双轨分析</div>
+            <div class="header-tag">⚡ 含欧冠决赛心态信号</div>
+        </div>
+        """)
+        # ── Tab Navigation ──────────────────────────────────────────────────
+        active_tab = gr.State("leaderboard")
+
+        gr.HTML("""
+        <div class="tab-nav">
+            <button class="tab-btn active" id="tab-leaderboard" onclick="switchTab('leaderboard')">🏆 冠军概率榜</button>
+            <button class="tab-btn" id="tab-detail" onclick="switchTab('detail')">🔍 球队详情</button>
+            <button class="tab-btn" id="tab-ucl" onclick="switchTab('ucl')">⚡ 欧冠信号</button>
+            <button class="tab-btn" id="tab-fullrank" onclick="switchTab('fullrank')">📊 完整排行</button>
+        </div>
+        <script>
+        function switchTab(name) {
+            document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+            document.getElementById('tab-'+name).classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(function(c){c.style.display='none'});
+            document.getElementById('content-'+name).style.display='block';
+        }
+        </script>
+        """)
 
         results, _ = load_all_data()
         team_names = [r["country"] for r in results]
 
-        with gr.Tabs():
-            # ── Tab 1: 冠军榜 ──────────────────────────────────────────
-            with gr.TabItem("🏆 冠军概率榜"):
-                gr.Markdown("<p class='section-header'>TOP 10 夺冠概率</p>", elem_classes=["main"])
+        # ── Content Wrapper ──────────────────────────────────────────────────
+        gr.HTML('<div class="content-area">')
 
-                top10 = results[:10]
-                with gr.Column():
-                    for r in top10:
-                        flag = FLAG.get(r["country"], "🏳️")
-                        shift = r["shift"]
-                        shift_cls = (
-                            "shift-up" if shift > 0.005
-                            else "shift-down" if shift < -0.005
-                            else "shift-flat"
-                        )
-                        shift_str = f"{shift*100:+.1f}%" if abs(shift) > 0.005 else "~0%"
+        # ── TAB 1: 冠军概率榜 ─────────────────────────────────────────────
+        gr.HTML('<div id="content-leaderboard" class="tab-content"><p class="section-label">Top 10 夺冠概率</p><div class="lcards">')
 
-                        # verdict badge
-                        if "加持" in r["verdict"]:
-                            v_cls, v_txt = "verdict-up", "⬆️ 加持"
-                        elif "压制" in r["verdict"]:
-                            v_cls, v_txt = "verdict-down", "⬇️ 压制"
-                        else:
-                            v_cls, v_txt = "verdict-flat", "➖ 中性"
+        for idx, r in enumerate(results[:10], 1):
+            flag = FLAG.get(r["country"], "🏳️")
+            shift = r["shift"]
+            shift_cls = "shift-up" if shift > 0.005 else "shift-down" if shift < -0.005 else "shift-flat"
+            shift_icon = "↑" if shift > 0.005 else "↓" if shift < -0.005 else "→"
+            shift_str = f"{shift*100:+.1f}%" if abs(shift) > 0.005 else "~0%"
+            if "加持" in r["verdict"]:
+                v_cls, v_icon = "verdict-up", "⬆"
+            elif "压制" in r["verdict"]:
+                v_cls, v_icon = "verdict-down", "⬇"
+            else:
+                v_cls, v_icon = "verdict-flat", "➖"
+            # top player hint
+            ucl = compute_country_ucl_mentality_bonus(r["country"])
+            ucl_hint = ""
+            if ucl["signal_count"] > 0:
+                ucl_hint = f"<span class='ltag ltag-accent'>⚡ {ucl['mentality_avg']:+.2f}</span>"
+            gr.HTML(f"""
+            <div class="lcard">
+                <div class="lcard-top">
+                    <div class="lcard-left">
+                        <span class="rank-num">{idx}</span>
+                        <span class="flag-emoji">{flag}</span>
+                        <div>
+                            <div class="team-name">{r["country"]}</div>
+                            <div class="team-meta">Elo {int(r["elo"])} · 置信度 {r["confidence"]:.0%}</div>
+                        </div>
+                    </div>
+                    <div class="prob-display">
+                        <div class="prob-number">{r["final_prob"]:.1%}</div>
+                        <div class="prob-label">概率</div>
+                    </div>
+                </div>
+                <div class="lcard-tags">
+                    <span class="lcard-shift {shift_cls}">{shift_icon} {shift_str}</span>
+                    <span class="verdict-badge {v_cls}">{v_icon} {r["verdict"][:6]}</span>
+                    {ucl_hint}
+                    <span class="ltag">卦 {r["iching"]}</span>
+                </div>
+            </div>
+            """)
 
-                        with gr.Group():
-                            html = (
-                                f"<div class='team-card'>"
-                                f"<div style='display:flex;align-items:center;gap:10px;margin-bottom:6px'>"
-                                f"<span style='font-size:1.6rem'>{flag}</span>"
-                                f"<div style='flex:1'>"
-                                f"<div style='font-weight:700;font-size:1.1rem'>{r['country']}</div>"
-                                f"<span class='elo-tag'>Elo {int(r['elo'])}</span>"
-                                f"</div>"
-                                f"<div style='text-align:right'>"
-                                f"<div class='prob-big'>{r['final_prob']:.1%}</div>"
-                                f"<div class='prob-shift {shift_cls}'>{shift_str}</div>"
-                                f"</div>"
-                                f"</div>"
-                                f"<div style='display:flex;gap:6px;flex-wrap:wrap;margin-top:4px'>"
-                                f"<span class='verdict-badge {v_cls}'>{v_txt}</span>"
-                                f"<span style='color:#8b949e;font-size:0.8rem'>置信度 {r['confidence']:.0%}</span>"
-                                f"<span style='color:#d4af37;font-size:0.8rem'>卦象 {r['iching']}</span>"
-                                f"</div>"
-                                f"</div>"
-                            )
-                            gr.HTML(html)
+        gr.HTML('</div></div>')  # close lcards, content-leaderboard
 
-            # ── Tab 2: 球队详情 ──────────────────────────────────────────
-            with gr.TabItem("🔍 球队详情"):
-                gr.Markdown("<p class='section-header'>选择球队</p>", elem_classes=["main"])
+        # ── TAB 2: 球队详情 ─────────────────────────────────────────────
+        gr.HTML('<div id="content-detail" class="tab-content" style="display:none">')
 
-                team_select = gr.Dropdown(
-                    choices=team_names,
-                    value="France",
-                    label="球队 / Team",
-                    info="选择一支球队查看完整玄学分析",
-                )
-
-                detail_output = gr.Markdown("", elem_classes=["main"])
-
-                def on_select_team(country):
-                    r = next((x for x in results if x["country"] == country), None)
-                    if not r:
-                        return "**未找到数据**"
-
-                    flag = FLAG.get(country, "🏳️")
-                    shift = r["shift"]
-                    shift_cls = (
-                        "shift-up" if shift > 0.005
-                        else "shift-down" if shift < -0.005
-                        else "shift-flat"
-                    )
-                    shift_str = f"{shift*100:+.1f}%" if abs(shift) > 0.005 else "~0%"
-
-                    # UCL data
-                    ucl = compute_country_ucl_mentality_bonus(country)
-                    ucl_info = ""
-                    if ucl["signal_count"] > 0:
-                        mind = ucl["mentality_avg"]
-                        mind_cls = "mind-pos" if mind > 0.1 else "mind-neg" if mind < -0.1 else "mind-neu"
-                        ucl_info = (
-                            f"\n\n**⚡ 欧冠心态信号**\n"
-                            f"- 球员样本：{ucl['signal_count']}人\n"
-                            f"- 平均心态分：<span class='mind-score {mind_cls}'>{mind:+.2f}</span>\n"
-                            f"- 世界杯概率修正：<span class='{mind_cls}'>{ucl['wc_total_adjustment']:+.2f}%</span>\n"
-                        )
-
-                    # Factor breakdown
-                    factors = [
-                        ("🎰 彩票悖论", r["contrarian"]),
-                        ("⚡ 小组赛波动", r["gs_vol"]),
-                        ("🎲 淘汰赛弹性", r["knock_unc"]),
-                        ("💀 强势方诅咒", r["fav_curse"]),
-                    ]
-                    factor_rows = "\n".join(
-                        f"| {name} | {v:+.3f} |"
-                        for name, v in factors
-                    )
-
-                    return (
-                        f"## {flag} {country}\n\n"
-                        f"| | |\n"
-                        f"|---|---|\n"
-                        f"| 逻辑概率 | **{r['logical_prob']:.1%}** |\n"
-                        f"| 玄学修正后 | **{r['final_prob']:.1%}** |\n"
-                        f"| 修正幅度 | <span class='{shift_cls}'>{shift_str}</span> |\n"
-                        f"| 置信度 | {r['confidence']:.0%} |\n"
-                        f"| 卦象 | {r['iching']} |\n"
-                        f"|  verdict  | {r['verdict']} |\n"
-                        f"| Zen建议 | {r['zen'][:40]}... |\n"
-                        f"| Tao建议 | {r['tao'][:40]} |\n"
-                        f"{ucl_info}\n\n"
-                        f"### 修正因子拆解\n\n"
-                        f"| 因子 | 偏移量 |\n"
-                        f"|---|---|\n"
-                        f"{factor_rows}\n\n"
-                        f"*{r['iching_warning']}*"
-                    )
-
-                team_select.change(
-                    fn=on_select_team,
-                    inputs=[team_select],
-                    outputs=[detail_output],
-                )
-                # 初始加载
-                on_select_team("France")
-
-            # ── Tab 3: 欧冠心态信号 ──────────────────────────────────────────
-            with gr.TabItem("⚡ 欧冠信号"):
-                gr.Markdown(
-                    "<p class='section-header'>欧冠决赛 → 世界杯心态映射</p>",
-                    elem_classes=["main"],
-                )
-                gr.Markdown(
-                    "基于2024-25赛季欧冠淘汰赛关键动作，"
-                    "对照2014巴西1-7（心理崩溃型）和2018法国（顺势爆发型）框架，"
-                    "量化球员在世界杯决赛圈的心态信号。\n",
-                    elem_classes=["main"],
-                )
-
-                ucl_countries = ["France", "England", "Argentina", "Italy", "Georgia", "Portugal"]
-                ucl_select = gr.Dropdown(
-                    choices=ucl_countries,
-                    value="France",
-                    label="选择球队 / Select Country",
-                )
-                ucl_output = gr.Markdown("", elem_classes=["main"])
-
-                def on_select_ucl(country):
-                    return get_ucl_card(country)
-
-                ucl_select.change(
-                    fn=on_select_ucl,
-                    inputs=[ucl_select],
-                    outputs=[ucl_output],
-                )
-                on_select_ucl("France")
-
-            # ── Tab 4: 完整排行 ──────────────────────────────────────────
-            with gr.TabItem("📊 完整排行"):
-                gr.Markdown("<p class='section-header'>全部球队概率排行</p>", elem_classes=["main"])
-
-                all_rows = []
-                for r in results:
-                    flag = FLAG.get(r["country"], "🏳️")
-                    shift = r["shift"]
-                    shift_str = f"{shift*100:+.1f}%" if abs(shift) > 0.005 else "~0%"
-                    all_rows.append(
-                        f"| {flag} {r['country']} | {r['elo']:.0f} | "
-                        f"{r['logical_prob']:.1%} | {r['final_prob']:.1%} | {shift_str} | "
-                        f"{r['iching']} | {r['verdict'].split()[0] if r['verdict'] else '—'} |"
-                    )
-
-                table = (
-                    "| # | 球队 | Elo | 逻辑 | 玄学 | 偏移 | 卦象 | 判定 |\n"
-                    + "|---|------|-----|------|------|------|------|------|\n"
-                    + "\n".join(all_rows)
-                )
-                gr.Markdown(table, elem_classes=["main"])
-
-        # ── 页脚 ──────────────────────────────────────────
-        gr.Markdown(
-            "<p style='text-align:center;color:#4d5566;font-size:0.8rem;padding:16px 0 8px'>"
-            "数据来源：Wikipedia真实阵容 + FiveThirtyEight Elo | "
-            "玄学模块：道德经 · 易经 · 三重境界 · 欧冠心态信号 | "
-            "⚠️ 预测仅供参考，不构成投注建议"
-            "</p>",
-            elem_classes=["main"],
+        team_select = gr.Dropdown(
+            choices=team_names,
+            value="France",
+            label="",
+            info="选择球队",
         )
+        detail_output = gr.HTML("")
+
+        def on_select_team(country):
+            r = next((x for x in results if x["country"] == country), None)
+            if not r:
+                return "<p style='color:#8a8f98'>未找到数据</p>"
+            flag = FLAG.get(country, "🏳️")
+            shift = r["shift"]
+            shift_str = f"{shift*100:+.1f}%" if abs(shift) > 0.005 else "~0%"
+            mind = ""
+            ucl = compute_country_ucl_mentality_bonus(country)
+            if ucl["signal_count"] > 0:
+                m = ucl["mentality_avg"]
+                m_cls = "score-pos" if m > 0.1 else "score-neg" if m < -0.1 else "score-neu"
+                mind = f"""
+                <div class="detail-section">
+                    <div class="detail-section-title">⚡ 欧冠心态信号</div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <div class="stat-box">
+                            <div class="stat-val {m_cls}">{m:+.2f}</div>
+                            <div class="stat-lbl">平均心态分</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-val {'score-pos' if ucl['wc_total_adjustment']>0 else 'score-neg'}">{ucl['wc_total_adjustment']:+.2f}%</div>
+                            <div class="stat-lbl">概率修正</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-val">{ucl['signal_count']}人</div>
+                            <div class="stat-lbl">样本球员</div>
+                        </div>
+                    </div>
+                </div>"""
+            return f"""
+            <div class="detail-card">
+                <div class="detail-header">
+                    <span class="detail-flag">{flag}</span>
+                    <div>
+                        <div class="detail-title">{country}</div>
+                        <div class="detail-elo">Elo {int(r["elo"])} · 卫冕冠军：{country == DEFENDING_CHAMPION} · 东道主：{country == HOST_COUNTRY}</div>
+                    </div>
+                </div>
+                <div class="detail-body">
+                    <div class="detail-row">
+                        <span class="detail-key">逻辑概率</span>
+                        <span class="detail-val">{r["logical_prob"]:.1%}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">玄学修正后</span>
+                        <span class="detail-val detail-val-accent">{r["final_prob"]:.1%}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">修正幅度</span>
+                        <span class="detail-val">{shift_str}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">置信度</span>
+                        <span class="detail-val">{r["confidence"]:.0%}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">易经卦象</span>
+                        <span class="iching-hex">{r["iching"]} <span style="font-size:13px;color:#8a8f98">{r["verdict"][:10]}</span></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key">Zen 建议</span>
+                        <span class="detail-val" style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{r["zen"]}</span>
+                    </div>
+                    {mind}
+                    <div class="detail-section">
+                        <div class="detail-section-title">修正因子</div>
+                        <div class="stat-grid">
+                            <div class="stat-box">
+                                <div class="stat-val" style="color:{'#10b981' if r['contrarian']>0 else '#f85149' if r['contrarian']<0 else '#8a8f98'}">{r['contrarian']:+.3f}</div>
+                                <div class="stat-lbl">彩票悖论</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-val" style="color:#8a8f98">{r['gs_vol']:.3f}</div>
+                                <div class="stat-lbl">小组赛波动</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-val" style="color:#8a8f98">{r['knock_unc']:.3f}</div>
+                                <div class="stat-lbl">淘汰赛弹性</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-val" style="color:{'#f85149' if r['fav_curse']>0 else '#10b981'}">{r['fav_curse']:+.3f}</div>
+                                <div class="stat-lbl">强势方诅咒</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>"""
+
+        team_select.change(
+            fn=on_select_team,
+            inputs=[team_select],
+            outputs=[detail_output],
+        )
+        on_select_team("France")
+
+        gr.HTML('</div>')  # close content-detail
+
+        # ── TAB 3: 欧冠心态信号 ─────────────────────────────────────────
+        gr.HTML('<div id="content-ucl" class="tab-content" style="display:none">')
+        gr.HTML("""
+        <p class="section-label">欧冠决赛 → 世界杯心态映射</p>
+        <p style="font-size:13px;color:#8a8f98;margin:0 0 16px;line-height:1.6">
+        基于2024-25赛季欧冠淘汰赛关键动作，对照<span style="color:#7170ff">2014巴西1-7</span>（心理崩溃型）和<span style="color:#10b981">2018法国</span>（顺势爆发型）框架，量化球员在世界杯决赛圈的心态信号。
+        </p>
+        """)
+
+        ucl_countries = ["France", "England", "Argentina", "Italy", "Georgia", "Portugal"]
+        ucl_select = gr.Dropdown(
+            choices=ucl_countries,
+            value="France",
+            label="",
+        )
+        ucl_output = gr.HTML("")
+
+        def on_select_ucl(country):
+            bonus = compute_country_ucl_mentality_bonus(country)
+            signals = bonus.get("signals", [])
+            flag = FLAG.get(country, "🏳️")
+            if not signals:
+                return f'<div class="lcard"><p style="color:#8a8f98;margin:0">暂无{country}的欧冠决赛心态数据</p></div>'
+            cards = []
+            for sig in signals:
+                tier_name = str(sig.tier).split(".")[-1].upper()
+                tier_icon = {"BREAKTHROUGH": "🌟", "UNDERPRESSURE": "😰", "DOUBTING": "🤔",
+                             "SELF_DOUBT": "💭", "COLLAPSE": "💀"}.get(tier_name, "❓")
+                m_cls = "score-pos" if sig.mentality_score > 0.1 else "score-neg" if sig.mentality_score < -0.1 else "score-neu"
+                cards.append(f"""
+                <div class="player-card">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                        <div>
+                            <div class="player-name">{tier_icon} {sig.player_name}</div>
+                            <div class="player-meta">
+                                表现Z {sig.performance_z:+.1f} · 关键动作Z {sig.key_action_z:+.1f}
+                            </div>
+                        </div>
+                        <div class="player-score {m_cls}">{sig.mentality_score:+.2f}</div>
+                    </div>
+                    <span class="player-framework">📐 {sig.nearest_framework}</span>
+                    <div class="player-narrative">{sig.narrative[:100]}</div>
+                    <div style="margin-top:8px">
+                        <span class="ltag {'ltag-green' if '加持' in sig.wc_verdict else 'ltag-red' if '压制' in sig.wc_verdict else ''}">WC修正：{sig.wc_verdict}</span>
+                    </div>
+                </div>""")
+            summary = f"""
+            <div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap">
+                <div class="stat-box">
+                    <div class="stat-val {'score-pos' if bonus['mentality_avg']>0 else 'score-neg'}">{bonus['mentality_avg']:+.2f}</div>
+                    <div class="stat-lbl">平均心态</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val {'score-pos' if bonus['wc_total_adjustment']>0 else 'score-neg'}">{bonus['wc_total_adjustment']:+.2f}%</div>
+                    <div class="stat-lbl">概率修正</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val">{bonus['signal_count']}人</div>
+                    <div class="stat-lbl">球员样本</div>
+                </div>
+            </div>
+            """
+            return summary + "".join(cards)
+
+        ucl_select.change(
+            fn=on_select_ucl,
+            inputs=[ucl_select],
+            outputs=[ucl_output],
+        )
+        on_select_ucl("France")
+
+        gr.HTML('</div>')  # close content-ucl
+
+        # ── TAB 4: 完整排行 ─────────────────────────────────────────────
+        gr.HTML('<div id="content-fullrank" class="tab-content" style="display:none">')
+        gr.HTML('<p class="section-label">全部球队排行</p>')
+
+        rows_html = []
+        for idx, r in enumerate(results, 1):
+            flag = FLAG.get(r["country"], "🏳️")
+            shift = r["shift"]
+            shift_str = f"{shift*100:+.1f}%" if abs(shift) > 0.005 else "~0%"
+            v_short = r["verdict"].split()[0] if r["verdict"] else "—"
+            rows_html.append(f"""
+            <tr>
+                <td class="rank-num">{idx}</td>
+                <td>{flag} {r["country"]}</td>
+                <td style="color:#62666d">{int(r["elo"])}</td>
+                <td>{r["logical_prob"]:.1%}</td>
+                <td style="color:#f7f8f8;font-weight:510">{r["final_prob"]:.1%}</td>
+                <td style="color:{'#10b981' if shift>0.005 else '#f85149' if shift<-0.005 else '#8a8f98'}">{shift_str}</td>
+                <td style="font-size:15px">{r["iching"]}</td>
+                <td style="font-size:11px;color:#8a8f98">{v_short}</td>
+            </tr>""")
+
+        gr.HTML(f"""
+        <div style="overflow-x:auto">
+        <table class="full-table">
+            <thead>
+                <tr>
+                    <th>#</th><th>球队</th><th>Elo</th><th>逻辑</th><th>玄学</th><th>偏移</th><th>卦</th><th>判定</th>
+                </tr>
+            </thead>
+            <tbody>{"".join(rows_html)}</tbody>
+        </table>
+        </div>
+        """)
+
+        gr.HTML('</div>')  # close content-fullrank
+
+        gr.HTML('</div>')  # close content-area
+
+        # ── Footer ─────────────────────────────────────────────────────────
+        gr.HTML(f"""
+        <div class="footer">
+            数据：Wikipedia 真实阵容 + FiveThirtyEight Elo · 玄学：道德经 · 易经 · 三重境界 · <span class="accent">欧冠心态信号</span><br>
+            ⚠️ 预测仅供参考，不构成投注建议 · 更新于 {datetime.now().strftime("%m-%d %H:%M")}
+        </div>
+        """)
 
     return demo
 
