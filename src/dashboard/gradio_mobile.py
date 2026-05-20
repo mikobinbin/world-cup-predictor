@@ -298,38 +298,7 @@ def build_ui():
 
     with gr.Blocks(
         title="🏆 世界杯预测",
-        theme=gr.themes.Default().set(
-            # Core surfaces
-            body_background_fill="#08090a",
-            body_text_color="#f7f8f8",
-            block_background_fill="#0f1011",
-            block_border_color="rgba(255,255,255,0.08)",
-            block_label_background_fill="#191a1b",
-            block_label_text_color="#d0d6e0",
-            block_title_text_color="#f7f8f8",
-            # Input
-            input_background_fill="rgba(255,255,255,0.03)",
-            input_border_color="rgba(255,255,255,0.08)",
-            input_placeholder_color="#62666d",
-            # Buttons
-            button_primary_background_fill="#7170ff",
-            button_primary_text_color="#ffffff",
-            button_primary_hover_background_fill="#828fff",
-            button_secondary_background_fill="rgba(255,255,255,0.05)",
-            button_secondary_text_color="#d0d6e0",
-            button_secondary_hover_background_fill="rgba(255,255,255,0.08)",
-            # Sizing
-            border_radius_sm="6px",
-            border_radius_md="8px",
-            border_radius_lg="12px",
-            spacing_sm="8px",
-            spacing_md="16px",
-            spacing_lg="24px",
-            text_sm="13px",
-            text_md="15px",
-            text_lg="17px",
-            text_xl="20px",
-        ),
+        theme=None,  # CSS-only: avoids Gradio version compat issues
         css="""
         /* ── Linear Design System ── */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;510;590;600&display=swap');
