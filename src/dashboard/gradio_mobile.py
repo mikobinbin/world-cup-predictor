@@ -300,7 +300,6 @@ def build_ui():
         title="🏆 世界杯预测",
         theme=gr.themes.Default(
             primary_hue=260,  # indigo-violet
-            gray_hue=220,
         ).set(
             # Core surfaces
             body_background_fill="#08090a",
