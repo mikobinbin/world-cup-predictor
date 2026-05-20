@@ -449,40 +449,12 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
 .fw{background:var(--s2);border-radius:12px;padding:14px}
 .fw-tl{font-size:12px;font-weight:700;color:var(--gd);margin-bottom:8px}
 .fw-it{font-size:12px;color:var(--tx2);line-height:1.8}
-/* H2H Team Picker */
-.h2h-teams{display:flex;gap:12px;margin-bottom:18px;align-items:center}
-.h2h-team{flex:1}
-.h2h-team label{display:block;font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
-.h2h-pick{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:14px;min-height:72px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s}
-.h2h-pick:active{background:var(--bd)}
-.h2h-pick-fl{font-size:28px;flex-shrink:0;line-height:1}
-.h2h-pick-info{flex:1;min-width:0}
-.h2h-pick-nm{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.h2h-pick-pr{font-size:12px;color:var(--tx2);margin-top:3px}
-.h2h-pick-chevron{font-size:16px;color:var(--tx3);flex-shrink:0}
-.h2h-vs{font-size:18px;font-weight:900;color:var(--gd);text-align:center;flex-shrink:0;padding-bottom:20px}
-/* Picker overlay */
-.pick-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:none;flex-direction:column;justify-content:flex-end}
-.pick-overlay.on{display:flex}
-.pick-sheet{background:var(--s);border-radius:20px 20px 0 0;max-height:75vh;display:flex;flex-direction:column;overflow:hidden}
-.pick-sheet-hd{background:var(--s2);padding:16px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--bd);flex-shrink:0}
-.pick-sheet-tl{font-size:15px;font-weight:800}
-.pick-sheet-close{background:none;border:none;color:var(--bl);font-size:14px;font-weight:700;cursor:pointer;padding:4px 8px}
-.pick-search-wrap{position:relative;padding:12px 16px;flex-shrink:0}
-.pick-search{width:100%;background:var(--bd);border:none;border-radius:10px;padding:10px 14px 10px 36px;font-size:14px;color:var(--tx);box-sizing:border-box}
-.pick-search::placeholder{color:var(--tx3)}
-.pick-search-wrap::before{content:"🔍";position:absolute;left:26px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none}
-.pick-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 0}
-.pick-item{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:.5px solid var(--bd);cursor:pointer;-webkit-tap-highlight-color:var(--s2)}
-.pick-item:last-child{border-bottom:none}
-.pick-item:active{background:var(--s2)}
-.pick-item-fl{font-size:26px;flex-shrink:0;width:34px;text-align:center}
-.pick-item-info{flex:1;min-width:0}
-.pick-item-nm{font-size:15px;font-weight:700}
-.pick-item-pr{font-size:12px;color:var(--tx2);margin-top:2px}
-.pick-item-chk{font-size:16px;color:var(--bl);flex-shrink:0;display:none}
-.pick-item.sel .pick-item-chk{display:block}
-
+/* H2H */
+.h2h Teams{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.h2h Team{display:flex;flex-direction:column}
+.h2h Team label{display:block;font-size:12px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px}
+.h2h Team select{width:100%;background:var(--s2);color:var(--tx);border:0.5px solid var(--bd);border-radius:14px;padding:16px 18px;font-size:17px;font-weight:700;appearance:none;-webkit-appearance:none;cursor:pointer;line-height:1.4}
+.h2h-vs{font-size:24px;font-weight:900;color:var(--gd);text-align:center;padding:4px 0}
 .h2h-bar{display:flex;align-items:center;gap:0;border-radius:16px;overflow:hidden;height:52px;background:var(--s2);margin-bottom:14px}
 .h2h-bar-a{flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0 12px;height:100%;font-size:14px;font-weight:800;color:var(--tx);background:var(--bl)}
 .h2h-bar-d{flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--s);padding:0 10px;height:100%;background:var(--gd)}
@@ -504,32 +476,6 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
 .h2h-wl.w{background:rgba(48,209,88,0.15);color:var(--gr)}
 .h2h-wl.l{background:rgba(255,69,58,0.15);color:var(--rd)}
 .h2h-wl.d{background:rgba(255,214,10,0.15);color:var(--gd)}
-
-/* Score Prediction */
-.sc-pred{margin-bottom:16px}
-.sc-pred-r{display:flex;align-items:center;gap:0;border-radius:12px;overflow:hidden;height:56px;background:var(--s2);margin-bottom:16px;padding:0 4px}
-.sc-team{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px}
-.sc-team-nm{font-size:11px;font-weight:700;margin-bottom:4px;max-width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sc-goals{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.sc-gl{font-size:28px;font-weight:800;line-height:1;color:var(--tx);min-width:28px;text-align:center}
-.sc-sep{font-size:22px;font-weight:800;color:var(--tx3);flex-shrink:0}
-.sc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:16px}
-.sc-cell{background:var(--s2);border-radius:10px;padding:8px 6px;text-align:center}
-.sc-cell.top{background:rgba(10,132,255,.15);border:1px solid rgba(10,132,255,.3)}
-.sc-s{font-size:17px;font-weight:800;color:var(--tx)}
-.sc-p{font-size:10px;color:var(--tx2);margin-top:3px;font-weight:600}
-.sc-most-likely{background:var(--s);border-radius:12px;padding:14px 16px;margin-bottom:16px}
-.sc-ml-hd{font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
-.sc-ml-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:.5px solid var(--bd)}
-.sc-ml-row:last-child{border-bottom:none}
-.sc-ml-sc{font-size:15px;font-weight:800}
-.sc-ml-od{font-size:11px;font-weight:600;color:var(--tx2)}
-.sc-ml-d{font-size:11px;font-weight:700;color:var(--gd);min-width:40px;text-align:right}
-.sc-hd{display:flex;align-items:center;justify-content:space-between;padding:8px 0 6px;font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px}
-.sc-hd-hi{color:var(--yl)}
-.sc-hd-sub{font-size:10px;font-weight:800;color:var(--gr)}
-.sc-grid-hi .sc-cell-hi{background:rgba(255,204,0,.08);border:1px solid rgba(255,204,0,.2)}
-.sc-note{font-size:11px;color:var(--tx2);line-height:1.6;margin-top:8px;font-style:italic}
 .h2h-matchup{padding:10px 0;border-bottom:0.5px solid var(--bd)}
 .h2h-matchup:last-child{border-bottom:none}
 .h2h-mu-pos{font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px}
@@ -576,12 +522,12 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
 </div>
 
 <div class="tabbar">
-  <button class="tab on" id="tb-home" onclick="showTab('home')"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L13.5 7.5L19.5 8.5L15 13L16 19L11 16L6 19L7 13L2.5 8.5L8.5 7.5L11 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 19H14V21H8V19Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span>冠军</span></button>
-  <button class="tab" id="tb-factor" onclick="showTab('factor')"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="10" width="3.5" height="9" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="9.25" y="6" width="3.5" height="13" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="15.5" y="2" width="3.5" height="17" rx="1" stroke="currentColor" stroke-width="1.6"/></svg></span><span>因子</span></button>
-  <button class="tab" id="tb-mystic" onclick="showTab('mystic')"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/><circle cx="11" cy="11" r="3.5" fill="currentColor" opacity="0.4"/><path d="M11 2.5V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 17V19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.5 11H5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M17 11H19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span>玄学</span></button>
-  <button class="tab" id="tb-h2h" onclick="showTab('h2h')"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11H10M10 11L7 8M10 11L7 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 11H12M12 11L15 8M12 11L15 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>对战</span></button>
-  <button class="tab" id="tb-squad" onclick="showTab('squad')"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="7" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M2 17.5C2 14.4624 4.23858 12 7 12H7C9.76142 12 12 14.4624 12 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="15" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 17.5C10 14.4624 12.2386 12 15 12H15C17.7614 12 20 14.4624 20 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span>球队</span></button>
-  <button class="tab" id="tb-info" onclick="showTab('info')"><span class="ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M11 10V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="11" cy="6.5" r="0.9" fill="currentColor"/></svg></span><span>说明</span></button>
+  <button class="tab on" id="tb-home" onclick="showTab('home')"><span class="ico">🏆</span><span>冠军</span></button>
+  <button class="tab" id="tb-factor" onclick="showTab('factor')"><span class="ico">📊</span><span>因子</span></button>
+  <button class="tab" id="tb-mystic" onclick="showTab('mystic')"><span class="ico">🔮</span><span>玄学</span></button>
+  <button class="tab" id="tb-h2h" onclick="showTab('h2h')"><span class="ico">⚔️</span><span>对战</span></button>
+  <button class="tab" id="tb-squad" onclick="showTab('squad')"><span class="ico">👥</span><span>球队</span></button>
+  <button class="tab" id="tb-info" onclick="showTab('info')"><span class="ico">i</span><span>说明</span></button>
 </div>
 
 <!-- TAB: Champion -->
@@ -615,30 +561,14 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
     <div class="h2h-teams">
       <div class="h2h-team">
         <label>Team A / 球队A</label>
-        <div class="h2h-pick" id="h2h-pick-a" onclick="openPicker('a')">
-          <span class="h2h-pick-fl" id="h2h-pick-fl-a"></span>
-          <span class="h2h-pick-info">
-            <span class="h2h-pick-nm" id="h2h-pick-nm-a"></span>
-            <span class="h2h-pick-pr" id="h2h-pick-pr-a"></span>
-          </span>
-          <span class="h2h-pick-chevron">›</span>
-        </div>
+        <select id="h2h-a" onchange="h2hChange()"></select>
       </div>
       <div class="h2h-vs">⚔️</div>
       <div class="h2h-team">
         <label>Team B / 球队B</label>
-        <div class="h2h-pick" id="h2h-pick-b" onclick="openPicker('b')">
-          <span class="h2h-pick-fl" id="h2h-pick-fl-b"></span>
-          <span class="h2h-pick-info">
-            <span class="h2h-pick-nm" id="h2h-pick-nm-b"></span>
-            <span class="h2h-pick-pr" id="h2h-pick-pr-b"></span>
-          </span>
-          <span class="h2h-pick-chevron">›</span>
-        </div>
+        <select id="h2h-b" onchange="h2hChange()"></select>
       </div>
     </div>
-    <select id="h2h-a" onchange="h2hChange()" style="display:none"></select>
-    <select id="h2h-b" onchange="h2hChange()" style="display:none"></select>
     <div class="h2h-bar" id="h2h-bar">
       <div class="h2h-bar-a" id="h2h-bar-a" style="width:45%"></div>
       <div class="h2h-bar-d" id="h2h-bar-d" style="width:10%">—</div>
@@ -650,20 +580,6 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
       <div class="h2h-3m-it"><div class="h2h-3m-v" id="h2h-pb">33.0%</div><div class="h2h-3m-l">B Win</div></div>
     </div>
     <div id="h2h-content"></div>
-  </div>
-</div>
-
-<!-- Picker Overlay -->
-<div class="pick-overlay" id="pick-overlay" onclick="closePicker(event)">
-  <div class="pick-sheet" onclick="event.stopPropagation()">
-    <div class="pick-sheet-hd">
-      <span class="pick-sheet-tl" id="pick-title">Select Team</span>
-      <button class="pick-sheet-close" onclick="closePicker()">Done</button>
-    </div>
-    <div class="pick-search-wrap">
-      <input class="pick-search" id="pick-search" placeholder="Search team..." oninput="filterPickList()">
-    </div>
-    <div class="pick-list" id="pick-list"></div>
   </div>
 </div>
 
@@ -845,90 +761,6 @@ function getPlayerMatchups(ta,tb){
   return h;
 }
 
-
-function buildScorePred(ta, tb, r) {
-    var eloA = ta.elo || 1700;
-    var eloB = tb.elo || 1700;
-    var lambdaA = 1.3 + (eloA - 1700) / 500 * 1.0;
-    var lambdaB = 1.3 + (eloB - 1700) / 500 * 1.0;
-    lambdaA = Math.max(0.4, Math.min(3.5, lambdaA));
-    lambdaB = Math.max(0.4, Math.min(3.5, lambdaB));
-    function pois(k, lam) {
-        if (lam <= 0) return k === 0 ? 1 : 0;
-        var p = Math.exp(-lam);
-        for (var i = 1; i <= k; i++) p *= lam / i;
-        return p;
-    }
-    var results = [];
-    for (var ga = 0; ga <= 5; ga++) {
-        for (var gb = 0; gb <= 5; gb++) {
-            results.push({ga: ga, gb: gb, prob: pois(ga, lambdaA) * pois(gb, lambdaB), total: ga + gb});
-        }
-    }
-    results.sort(function(a, b){ return b.prob - a.prob; });
-    var top6 = results.slice(0, 6);
-    var totalShown = top6.reduce(function(s, x){ return s + x.prob; }, 0);
-
-    // High-scoring section: total goals >= 3, sorted by probability
-    var hiResults = results.filter(function(x){ return x.total >= 3; });
-    hiResults.sort(function(a, b){ return b.prob - a.prob; });
-    var topHi = hiResults.slice(0, 8);
-
-    var h = '<div class="sc-pred">';
-
-    // Expected goals header
-    h += '<div class="sc-pred-r">';
-    h += '<div class="sc-team"><div class="sc-team-nm">' + ta.country + '</div><div class="sc-goals"><span class="sc-gl">' + lambdaA.toFixed(1) + '</span></div></div>';
-    h += '<div class="sc-sep">:</div>';
-    h += '<div class="sc-team"><div class="sc-team-nm">' + tb.country + '</div><div class="sc-goals"><span class="sc-gl">' + lambdaB.toFixed(1) + '</span></div></div>';
-    h += '</div>';
-
-    // Top 6 grid
-    h += '<div class="sc-hd"><span>最可能 / Most Likely</span><span class="sc-hd-sub">+' + (totalShown * 100).toFixed(0) + '%</span></div>';
-    h += '<div class="sc-grid">';
-    for (var i = 0; i < top6.length; i++) {
-        var s2 = top6[i];
-        var isTop = i === 0;
-        var pct = (s2.prob * 100).toFixed(1);
-        h += '<div class="sc-cell' + (isTop ? ' top' : '') + '">';
-        h += '<div class="sc-s">' + s2.ga + ' - ' + s2.gb + '</div>';
-        h += '<div class="sc-p">' + pct + '%</div></div>';
-    }
-    h += '</div>';
-
-    // High-scoring section
-    if (topHi.length > 0) {
-        var hiTotal = topHi.reduce(function(s, x){ return s + x.prob; }, 0);
-        h += '<div class="sc-hd sc-hd-hi"><span>&#9888;&#65039; 大比分博弈 / High-Score Upside</span><span class="sc-hd-sub">' + (hiTotal * 100).toFixed(0) + '%</span></div>';
-        h += '<div class="sc-grid sc-grid-hi">';
-        for (var j = 0; j < topHi.length; j++) {
-            var s3 = topHi[j];
-            var pct2 = (s3.prob * 100).toFixed(1);
-            h += '<div class="sc-cell sc-cell-hi">';
-            h += '<div class="sc-s">' + s3.ga + ' - ' + s3.gb + '</div>';
-            h += '<div class="sc-p">' + pct2 + '%</div></div>';
-        }
-        h += '</div>';
-        h += '<div class="sc-note">&#128293; 高于 ' + lambdaA.toFixed(1) + '-' + lambdaB.toFixed(1) + ' 期望的大比分选项，适合搏冷 / Long-shot scorelines above expected goals</div>';
-    }
-
-    // Most likely scoreline list
-    h += '<div class="sc-most-likely">';
-    h += '<div class="sc-ml-hd">Scoreline Probability / 比分预测</div>';
-    for (var k = 0; k < top6.length; k++) {
-        var row = top6[k];
-        var outcome = row.ga > row.gb ? 'A' : (row.ga < row.gb ? 'B' : 'D');
-        var outcomeColor = outcome === 'A' ? 'var(--bl)' : 'var(--gd)';
-        var pct3 = (row.prob * 100).toFixed(1);
-        h += '<div class="sc-ml-row">';
-        h += '<span class="sc-ml-sc">' + fl(ta.country) + ' ' + row.ga + ' : ' + row.gb + ' ' + fl(tb.country) + '</span>';
-        h += '<span class="sc-ml-od">' + outcome + '</span>';
-        h += '<span class="sc-ml-d" style="color:' + outcomeColor + '">' + pct3 + '%</span></div>';
-    }
-    h += '</div>';
-    h += '<div class="sc-note">Poisson xG model based on Elo differential | Elo λ: ' + lambdaA.toFixed(2) + ' vs ' + lambdaB.toFixed(2) + '</div></div>';
-    return h;
-}
 function h2hChange(){
   var ta=D.find(function(x){return x.country===document.getElementById("h2h-a").value;});
   var tb=D.find(function(x){return x.country===document.getElementById("h2h-b").value;});
@@ -944,7 +776,6 @@ function h2hChange(){
   document.getElementById("h2h-pd").textContent=barD+"%";
   // factor diff
   var h='<div class="h2h-fc">'+getFactorDiff(ta,tb)+'</div>';
-  h += buildScorePred(ta, tb, r);
   // historical record
   var recKey=ta.country+"|"+tb.country,recKeyRev=tb.country+"|"+ta.country;
   var rec=H2H_RECORDS[recKey]||H2H_RECORDS[recKeyRev];
@@ -976,9 +807,6 @@ function h2hChange(){
 /* ── Squad ── */
 function sqChange(){var sel=document.getElementById("sq-sel");var c=sel.value;var t=D.find(function(x){return x.country===c;});if(!t){document.getElementById("sq-content").innerHTML="<p style='color:var(--tx2);font-size:14px;padding:20px 0'>No data</p>";return;}var h='<div class="sq-card"><div class="sq-ph"><span class="sq-ph-fl">'+fl(t.country)+'</span><div><div class="sq-ph-nm">'+t.country+'</div><div class="sq-ph-elo">Elo '+(t.elo||0).toFixed(0)+' · '+(t.players?t.players.length:0)+' players</div></div></div>';if(t.players&&t.players.length>0){h+='<table class="sq-table"><thead><tr><th class="sq-th" style="width:32px">Pos</th><th class="sq-th">Name / Club</th><th class="sq-th" style="text-align:right">Caps</th><th class="sq-th" style="text-align:right">Goals</th><th class="sq-th" style="text-align:right">MV</th></tr></thead><tbody>';var pos_c={GK:"#8e8e93",DF:"#0a84ff",MF:"#30d158",FW:"#ff453a"};for(var k=0;k<t.players.length;k++){var p=t.players[k];var pc2=pos_c[p.position]||"var(--tx2)";h+='<tr><td class="sq-td"><span class="sq-pos" style="color:'+pc2+'">'+p.position+'</span></td>';h+='<td class="sq-td"><div class="sq-name">'+p.name+'</div><div class="sq-club">'+(p.club||"")+"</div></td>";h+='<td class="sq-td sq-caps">'+p.national_caps+"</td>";h+='<td class="sq-td sq-goals">'+p.national_goals+"</td>";h+='<td class="sq-td"><span class="sq-mv">'+(p.market_value||0).toFixed(1)+"M</span></td></tr>";}h+="</tbody></table>";}else{h+='<div style="padding:20px;color:var(--tx2);font-size:13px">Sample squad (no Wikipedia data) / 样本阵容（无维基数据）</div>';}h+="</div>";document.getElementById("sq-content").innerHTML=h;}
 
-
-var _pickerSide=null;function openPicker(side){_pickerSide=side;var t=side==="a"?"Team A / 球队A":"Team B / 球队B";document.getElementById("pick-title").textContent=t;document.getElementById("pick-search").value="";filterPickList();document.getElementById("pick-overlay").classList.add("on");document.body.style.overflow="hidden"}function closePicker(e){if(e&&e.target!==document.getElementById("pick-overlay"))return;document.getElementById("pick-overlay").classList.remove("on");document.body.style.overflow=""}function filterPickList(){var q=document.getElementById("pick-search").value.toLowerCase();var list=document.getElementById("pick-list");var curVal=_pickerSide==="a"?document.getElementById("h2h-a").value:document.getElementById("h2h-b").value;var html="";for(var i=0;i<D.length;i++){var t=D[i];if(t.country.toLowerCase().indexOf(q)===-1&&fl(t.country).toLowerCase().indexOf(q)===-1)continue;var isSel=t.country===curVal;html+="<div class=\"pick-item"+(isSel?" sel":"")+"\" onclick=\"selectPick(\'"+t.country+"\')\">";html+="<span class=\"pick-item-fl\">"+fl(t.country)+"</span>";html+="<span class=\"pick-item-info\"><span class=\"pick-item-nm\">"+t.country+"</span>";html+="<span class=\"pick-item-pr\">"+(t.final_prob*100).toFixed(2)+"%</span></span>";html+="<span class=\"pick-item-chk\">&#10003;</span></div>"}list.innerHTML=html||"<div style=\"padding:24px;text-align:center;color:var(--tx2);font-size:14px\">No result</div>"}function selectPick(country){if(_pickerSide==="a"){document.getElementById("h2h-a").value=country;updatePickCard("a",country)}else{document.getElementById("h2h-b").value=country;updatePickCard("b",country)}closePicker();h2hChange()}function updatePickCard(side,country){var t=D.find(function(x){return x.country===country;});if(!t)return;document.getElementById("h2h-pick-fl-"+side).textContent=fl(t.country);document.getElementById("h2h-pick-nm-"+side).textContent=t.country;document.getElementById("h2h-pick-pr-"+side).textContent=(t.final_prob*100).toFixed(2)+"%"}
-
 /* ── Init ── */
 document.getElementById("upd").textContent="__UPDATE_TIME__";
 document.getElementById("infTime").textContent="__UPDATE_TIME__";
@@ -1000,9 +828,6 @@ for(var i=0;i<teams.length;i++){
 }
 if(teams.length>1){selA.value=teams[0].country;selB.value=teams[1].country;}
 h2hChange();
-// Init pick cards
-updatePickCard('a', teams[0].country);
-updatePickCard('b', teams[1].country);
 // Squad selector
 var sel=document.getElementById("sq-sel");
 for(var i=0;i<teams.length;i++){var opt=document.createElement("option");opt.value=teams[i].country;opt.textContent=fl(teams[i].country)+" "+teams[i].country+" "+(teams[i].final_prob*100).toFixed(1)+"%";sel.appendChild(opt);}
