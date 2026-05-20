@@ -1,216 +1,101 @@
-# 🏆 2026 FIFA World Cup Champion Predictor
-# 2026美加墨世界杯冠军预测系统
+# ⚽ 2026 世界杯 H2H 对战预测
 
-> 基于 Elo 评分 + 球员矩阵 + Monte Carlo 模拟 + 玄学因子的综合预测系统
-> 52支球队 | 25支真实阵容数据 | 6大维度建模
-
----
-
-## 功能特性
-
-| Tab | 内容 |
-|-----|------|
-| 🏆 冠军概率榜 | TOP3 Hero卡片 + 概率进度条 + 完整排名 |
-| 📊 因子拆解 | Elo/年龄/经验/状态/教练/玄学六大维度分析 |
-| 👥 球员矩阵 | 关键球员实力评分与对比 |
-| 🔮 玄学视角 | 彩票悖论 + 小组赛波动 + 淘汰赛命运 + 三重境界/道德经/易经 |
-| 📋 球队画像 | 52支球队完整档案 |
-| ⚔️ H2H对战预测 | 任意两队历史交锋与胜率预测 |
+> **Live:** [worldcup.imiaozhan.com/mobile](https://worldcup.imiaozhan.com/mobile)
+>
+> 基于 Elo 差值的 Poisson xG 模型 + 玄学因子的世界杯对战预测系统
 
 ---
 
-## 一键部署
+## 🧩 核心功能
 
-### macOS / Linux 本地运行
+### ⚔️ H2H 对战预测
+任意两支球队的历史交锋、胜率预测、**比分概率矩阵**（含大比分博弈区）
 
-```bash
-cd world_cup_predictor
+### 📊 比分预测模型
+- **Poisson xG**：基于两队 Elo 差值推算期望进球 λ
+- **Top 6 最可能比分**：概率从高到低排列
+- **大比分博弈区**：总进球 ≥ 3 的搏冷选项（黄色高亮）
 
-# 安装依赖（推荐使用虚拟环境）
-python3 -m venv venv
-source venv/bin/activate        # macOS/Linux
-# venv\Scripts\activate         # Windows
-
-pip install -r requirements.txt
-
-# 启动（默认 8501 端口）
-./start.sh
-
-# 指定端口，例如 8080
-./start.sh 8080
-```
-
-### Windows
-
-```powershell
-cd world_cup_predictor
-pip install -r requirements.txt
-streamlit run src/dashboard/leaderboard.py --server.port 8501
-```
-
----
-
-## 服务器部署（Nginx + Systemd）
-
-### 1. 安装依赖
-
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install -y python3 python3-venv python3-pip
-pip3 install -r requirements.txt
-
-# 防火墙开放端口
-sudo ufw allow 8501
-```
-
-### 2. 配置 Systemd 服务
-
-```bash
-sudo nano /etc/systemd/system/wc-predictor.service
-```
-
-写入以下内容：
-
-```ini
-[Unit]
-Description=World Cup 2026 Champion Predictor
-After=network.target
-
-[Service]
-Type=simple
-User=www-data
-WorkingDirectory=/opt/world_cup_predictor
-ExecStart=/opt/world_cup_predictor/venv/bin/streamlit run src/dashboard/leaderboard.py --server.port 8501 --server.headless true --server.address 127.0.0.1
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### 3. 安装并启动
-
-```bash
-# 复制项目到服务器
-sudo cp -r world_cup_predictor /opt/
-
-# 安装依赖
-cd /opt/world_cup_predictor
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-# 启用并启动服务
-sudo systemctl daemon-reload
-sudo systemctl enable wc-predictor
-sudo systemctl start wc-predictor
-
-# 检查状态
-sudo systemctl status wc-predictor
-```
-
-### 4. Nginx 反向代理（可选，支持域名 + HTTPS）
-
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-
-    location / {
-        proxy_pass http://127.0.0.1:8501;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_read_timeout 86400;
-    }
-}
-```
-
----
-
-## 访问地址
-
-| 环境 | 地址 |
+### 🔮 玄学因子引擎
+| 模块 | 内容 |
 |------|------|
-| 本地 macOS/Linux | `http://localhost:8501` |
-| 局域网（同一WiFi） | `http://<本机IP>:8501` |
-| 服务器（直接IP） | `http://<服务器IP>:8501` |
-| 服务器（Nginx代理） | `http://your-domain.com` |
+| 易经 | 乾卦预测冠军气质 |
+| 道德经 | 顺势/逆势哲学框架 |
+| 三重境界 | 逻辑/道法/价值三层校验 |
+| 彩票悖论 | 热门陷阱与逆势价值 |
 
-查看本机局域网IP：
+### 👤 UCL 决赛心态信号
+姆巴佩、登贝莱、劳塔罗等球员决赛表现量化接入，映射到 Brazil 2014 / France 2018 历史框架调参
+
+---
+
+## 📱 在线体验
+
+**移动端优先**：https://worldcup.imiaozhan.com/mobile
+
+支持任意两队 H2H 对战预测，实时显示胜平负概率 + 比分分布
+
+---
+
+## 🛠 本地运行
+
 ```bash
-# macOS
-ifconfig | grep "inet " | grep -v 127.0.0.1
+git clone https://github.com/mikobinbin/2026-world-cup-predictor.git
+cd 2026-world-cup-predictor
 
-# Linux
-hostname -I
+pip install -r requirements.txt
+python3 -m src.dashboard.mobile_ui
+# 访问 http://localhost:8080/mobile
 ```
 
 ---
 
-## 数据说明
-
-- **阵容数据**：来自 Wikipedia 2026世界杯各队参赛名单（25/52支球队）
-- **Elo评分**：FiveThirtyEight 历史积累 + 2026最新更新
-- **其余27支**：基于同组别历史数据模拟
-- **玄学因子**：彩票悖论 / 小组赛波动 / 淘汰赛命运 + 三重境界/道德经/易经哲学框架
-
----
-
-## 目录结构
+## 📂 项目结构
 
 ```
-world_cup_predictor/
+world-cup-predictor/
 ├── src/
 │   ├── dashboard/
-│   │   └── leaderboard.py     # 主应用（启动入口）
+│   │   └── mobile_ui.py       # 移动端 UI（主入口）
 │   ├── models/
-│   │   ├── player_scoring.py   # 球员评分
-│   │   ├── team_scoring.py     # 球队评分
-│   │   └── mystic_factor.py     # 玄学因子引擎
+│   │   ├── ucl_final_mentality.py  # UCL 决赛心态信号
+│   │   └── mystic_factor.py    # 玄学因子引擎
 │   └── simulation/
-│       └── monte_carlo.py       # Monte Carlo模拟
+│       └── elo_engine.py      # Elo 评分系统
 ├── data/
-│   ├── elo_cache_2026.json         # Elo评分数据
-│   ├── wc2026_players_processed.json # 处理后球员数据
-│   └── wc2026_squads_wikipedia.json  # Wikipedia阵容数据
-├── .streamlit/
-│   └── config.toml             # Streamlit主题配置
-├── assets/
-│   └── custom.css             # 自定义深色主题CSS
-├── config.py                  # 全局配置
-├── requirements.txt           # Python依赖
-├── start.sh                   # 一键启动脚本
-└── README.md                  # 本文件
+│   ├── elo_cache_2026.json   # 52 队 Elo 数据
+│   └── wc2026_squads_wikipedia.json  # 阵容数据
+├── SKILL.md                   # Hermes Agent 工作流笔记
+└── SERVER_DEPLOY.md           # 服务器部署指南
 ```
 
 ---
 
-## 更新预测数据
+## 🔑 核心模型
 
-```bash
-# 更新Elo评分
-python scripts/elo_scraper.py
+### Poisson xG 期望进球
 
-# 更新阵容数据
-python scripts/wikipedia_squads.py
-python scripts/ingest_wikipedia_squads.py
 ```
+λA = 1.3 + (eloA - 1700) / 500
+λB = 1.3 + (eloB - 1700) / 500
+P(ga, gb) = Poisson(ga | λA) × Poisson(gb | λB)
+```
+
+### 玄学因子权重（可调）
+
+| 因子 | 说明 |
+|------|------|
+| Elo 评分 | 球队实力基准 |
+| 年龄结构 | 新老交替周期 |
+| 大赛经验 | 淘汰赛 survival 概率 |
+| 状态趋势 | 近 6 场表现 |
+| 教练因子 | 战术调整能力 |
+| 玄学加成 | 易经/道德经综合判断 |
 
 ---
 
-## 常见问题
+## 📌 更新记录
 
-**Q: 页面显示空白？**
-> 可能是端口被占用，换一个端口：`./start.sh 8502`
-
-**Q: 依赖安装失败？**
-> 确保 Python 版本 >= 3.9：`python3 --version`
-
-**Q: 手机无法访问？**
-> 检查服务器防火墙：`sudo ufw allow 8501`
-
-**Q: 中文显示乱码？**
-> 确保服务器系统支持 UTF-8，Linux 可添加：`export LANG=en_US.UTF-8`
+- **2026-05** — H2H 对战 + 比分预测 + 大比分博弈区上线
+- **2026-05** — UCL 决赛心态信号接入（姆巴佩/登贝莱/劳塔罗）
+- **2026-05** — 玄学因子引擎（易经/道德经/三重境界）
