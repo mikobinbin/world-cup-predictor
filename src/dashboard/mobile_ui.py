@@ -893,10 +893,8 @@ function getPlayerMatchups(ta,tb){
 function buildScorePred(ta, tb, r) {
     var eloA = ta.elo || 1700;
     var eloB = tb.elo || 1700;
-    // Base lambda from Elo
     var lambdaA = 1.3 + (eloA - 1700) / 500 * 1.0;
     var lambdaB = 1.3 + (eloB - 1700) / 500 * 1.0;
-    // Mystic shift: shift = mystical probability adjustment
     var shiftA = ta.shift || 0;
     var shiftB = tb.shift || 0;
     lambdaA = lambdaA * (1 + shiftA * 3.0);
@@ -911,66 +909,79 @@ function buildScorePred(ta, tb, r) {
         return p;
     }
 
-    // Extreme tail boost model: football data shows blowouts (total>=4) more likely than Poisson predicts
-    // Apply 3x boost to extreme scorelines (total>=4), then renormalize
     var EXTREME_THRESH = 5;
     var BOOST_FACTOR = 3.0;
 
     var raw = [];
     for (var ga = 0; ga <= 5; ga++) {
         for (var gb = 0; gb <= 5; gb++) {
-            var p = pois(ga, lambdaA) * pois(gb, lambdaB);
-            raw.push({ga: ga, gb: gb, pois: p, total: ga + gb});
+            raw.push({ga: ga, gb: gb, pois: pois(ga, lambdaA) * pois(gb, lambdaB), total: ga + gb});
         }
     }
 
-    // Apply extreme tail boost
     var sumBoosted = 0;
     for (var i = 0; i < raw.length; i++) {
-        var x = raw[i];
-        x.boosted = x.total >= EXTREME_THRESH ? x.pois * BOOST_FACTOR : x.pois;
-        sumBoosted += x.boosted;
+        raw[i].boosted = raw[i].total >= EXTREME_THRESH ? raw[i].pois * BOOST_FACTOR : raw[i].pois;
+        sumBoosted += raw[i].boosted;
     }
+    for (var i = 0; i < raw.length; i++) raw[i].prob = raw[i].boosted / sumBoosted;
 
-    // Renormalize so total probability = 1.0
-    for (var i = 0; i < raw.length; i++) {
-        raw[i].prob = raw[i].boosted / sumBoosted;
-    }
-
-    // Top 6 by final probability (for main grid)
+    // Sort by prob for grid display
     var sorted = raw.slice().sort(function(a, b){ return b.prob - a.prob; });
     var top6 = sorted.slice(0, 6);
     var totalShown = top6.reduce(function(s, x){ return s + x.prob; }, 0);
 
-    // High-scoring section: sorted by boosted probability, NB tag indicates extreme-tail boost
     var hiAll = raw.filter(function(x){ return x.total >= 3; });
     hiAll.sort(function(a, b){ return b.prob - a.prob; });
     var topHi = hiAll.slice(0, 8);
     var hiTotal = topHi.reduce(function(s, x){ return s + x.prob; }, 0);
 
+    // Featured prediction: deterministic weighted random from top 3
+    // Uses matchup string hash so same matchup always picks same result (reproducible)
+    // but different matchups naturally get different featured predictions
+    function hashStr(s) {
+        var h = 0;
+        for (var i = 0; i < s.length; i++) {
+            h = ((h << 5) - h) + s.charCodeAt(i);
+            h = h & h;
+        }
+        return Math.abs(h) / 2147483647;
+    }
+    var matchupKey = (ta.country || "") + " vs " + (tb.country || "");
+    var top3 = sorted.slice(0, 3);
+    var top3Total = top3.reduce(function(s, x){ return s + x.prob; }, 0);
+    var seed = hashStr(matchupKey);
+    var cumsum = 0;
+    for (var i = 0; i < top3.length; i++) {
+        cumsum += top3[i].prob / top3Total;
+        if (seed < cumsum) { var featured = top3[i]; break; }
+    }
+    if (!featured) featured = top3[0];
+
     var h = '<div class="sc-pred">';
 
-    // Expected goals header
+    // Expected goals header with featured prediction highlighted
     h += '<div class="sc-pred-r">';
     h += '<div class="sc-team"><div class="sc-team-nm">' + ta.country + '</div><div class="sc-goals"><span class="sc-gl">' + lambdaA.toFixed(1) + '</span></div></div>';
     h += '<div class="sc-sep">:</div>';
     h += '<div class="sc-team"><div class="sc-team-nm">' + tb.country + '</div><div class="sc-goals"><span class="sc-gl">' + lambdaB.toFixed(1) + '</span></div></div>';
     h += '</div>';
 
-    // Top 6 grid (Poisson base, extreme outcomes naturally boosted via renorm)
+    // Top 6 grid: always shows mathematically most probable
     h += '<div class="sc-hd"><span>最可能 / Most Likely</span><span class="sc-hd-sub">+' + (totalShown * 100).toFixed(0) + '%</span></div>';
     h += '<div class="sc-grid">';
     for (var i = 0; i < top6.length; i++) {
         var s2 = top6[i];
         var isTop = i === 0;
+        var isFeatured = s2.ga === featured.ga && s2.gb === featured.gb;
         var pct = (s2.prob * 100).toFixed(1);
-        h += '<div class="sc-cell' + (isTop ? ' top' : '') + '">';
-        h += '<div class="sc-s">' + s2.ga + ' - ' + s2.gb + '</div>';
+        h += '<div class="sc-cell' + (isTop || isFeatured ? ' top' : '') + '">';
+        h += '<div class="sc-s">' + s2.ga + ' - ' + s2.gb + (isFeatured ? ' &#9733;' : '') + '</div>';
         h += '<div class="sc-p">' + pct + '%</div></div>';
     }
     h += '</div>';
 
-    // High-scoring section with extreme tail boost (✦ = extreme outcome boosted)
+    // High-scoring section
     if (topHi.length > 0) {
         h += '<div class="sc-hd sc-hd-hi"><span>&#9888;&#65039; 大比分博弈 / High-Score (&#215;3 boost for total&#8805;5)</span><span class="sc-hd-sub">' + (hiTotal * 100).toFixed(0) + '%</span></div>';
         h += '<div class="sc-grid sc-grid-hi">';
@@ -986,21 +997,22 @@ function buildScorePred(ta, tb, r) {
         h += '<div class="sc-note">&#128293; &#215;3 boost for extreme outcomes (total&#8805;5: 5-0,4-1,5-1,3-2...). Renormalized from base Poisson | Elo &#955;: ' + lambdaA.toFixed(2) + ' vs ' + lambdaB.toFixed(2) + '</div>';
     }
 
-    // Most likely scoreline list
+    // Most likely scoreline list — featured prediction shown first with highlight
     h += '<div class="sc-most-likely">';
-    h += '<div class="sc-ml-hd">Scoreline Probability / 比分预测</div>';
+    h += '<div class="sc-ml-hd">Scoreline Probability / 比分预测 ' + (featured ? '&#9733; ' + featured.ga + '-' + featured.gb : '') + '</div>';
     for (var k = 0; k < top6.length; k++) {
         var row = top6[k];
+        var isFeatured = featured && row.ga === featured.ga && row.gb === featured.gb;
         var outcome = row.ga > row.gb ? 'A' : (row.ga < row.gb ? 'B' : 'D');
         var outcomeColor = outcome === 'A' ? 'var(--bl)' : 'var(--gd)';
         var pct3 = (row.prob * 100).toFixed(1);
-        h += '<div class="sc-ml-row">';
-        h += '<span class="sc-ml-sc">' + fl(ta.country) + ' ' + row.ga + ' : ' + row.gb + ' ' + fl(tb.country) + '</span>';
+        h += '<div class="sc-ml-row' + (isFeatured ? '" style="background:rgba(255,214,10,0.08)"' : '') + '">';
+        h += '<span class="sc-ml-sc">' + fl(ta.country) + ' ' + row.ga + ' : ' + row.gb + ' ' + fl(tb.country) + (isFeatured ? ' &#9733;' : '') + '</span>';
         h += '<span class="sc-ml-od">' + outcome + '</span>';
         h += '<span class="sc-ml-d" style="color:' + outcomeColor + '">' + pct3 + '%</span></div>';
     }
     h += '</div>';
-    h += '<div class="sc-note">Poisson xG + extreme-tail renormalized boost | Elo &#955;: ' + lambdaA.toFixed(2) + ' vs ' + lambdaB.toFixed(2) + '</div></div>';
+    h += '<div class="sc-note">Poisson xG + extreme-tail renormalized boost + mystical weighted random | Elo &#955;: ' + lambdaA.toFixed(2) + ' vs ' + lambdaB.toFixed(2) + '</div></div>';
     return h;
 }
 function h2hChange(){
