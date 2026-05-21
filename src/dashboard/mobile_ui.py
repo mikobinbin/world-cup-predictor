@@ -913,7 +913,7 @@ function buildScorePred(ta, tb, r) {
 
     // Extreme tail boost model: football data shows blowouts (total>=4) more likely than Poisson predicts
     // Apply 3x boost to extreme scorelines (total>=4), then renormalize
-    var EXTREME_THRESH = 4;
+    var EXTREME_THRESH = 5;
     var BOOST_FACTOR = 3.0;
 
     var raw = [];
@@ -972,7 +972,7 @@ function buildScorePred(ta, tb, r) {
 
     // High-scoring section with extreme tail boost (✦ = extreme outcome boosted)
     if (topHi.length > 0) {
-        h += '<div class="sc-hd sc-hd-hi"><span>&#9888;&#65039; 大比分博弈 / High-Score (&#215;3 boost for total&#8805;4)</span><span class="sc-hd-sub">' + (hiTotal * 100).toFixed(0) + '%</span></div>';
+        h += '<div class="sc-hd sc-hd-hi"><span>&#9888;&#65039; 大比分博弈 / High-Score (&#215;3 boost for total&#8805;5)</span><span class="sc-hd-sub">' + (hiTotal * 100).toFixed(0) + '%</span></div>';
         h += '<div class="sc-grid sc-grid-hi">';
         for (var j = 0; j < topHi.length; j++) {
             var s3 = topHi[j];
@@ -983,7 +983,7 @@ function buildScorePred(ta, tb, r) {
             h += '<div class="sc-p">' + pct2 + '%</div></div>';
         }
         h += '</div>';
-        h += '<div class="sc-note">&#128293; &#215;3 boost for extreme outcomes (total&#8805;4: 4-0,5-0,4-1...). Renormalized from base Poisson | Elo &#955;: ' + lambdaA.toFixed(2) + ' vs ' + lambdaB.toFixed(2) + '</div>';
+        h += '<div class="sc-note">&#128293; &#215;3 boost for extreme outcomes (total&#8805;5: 5-0,4-1,5-1,3-2...). Renormalized from base Poisson | Elo &#955;: ' + lambdaA.toFixed(2) + ' vs ' + lambdaB.toFixed(2) + '</div>';
     }
 
     // Most likely scoreline list
