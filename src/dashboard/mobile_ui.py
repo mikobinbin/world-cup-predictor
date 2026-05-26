@@ -1101,11 +1101,21 @@ function sqChange(){var sel=document.getElementById("sq-sel");var c=sel.value;va
 
 /* Polymarket comparison data */
 var POLY_WINNER={
-"France":{price:0.175},"Spain":{price:0.174},"England":{price:0.113},"Portugal":{price:0.104},
-"Brazil":{price:0.092},"Argentina":{price:0.083},"Germany":{price:0.052},"Netherlands":{price:0.034},
-"Norway":{price:0.025},"Japan":{price:0.020},"Italy":{price:0.017},"Uruguay":{price:0.015},
-"Belgium":{price:0.014},"Croatia":{price:0.011},"USA":{price:0.010},"Denmark":{price:0.009},
-"Mexico":{price:0.008},"Colombia":{price:0.007},"Switzerland":{price:0.006},"Poland":{price:0.005}
+"France":{price:0.18},"Spain":{price:0.17},"England":{price:0.11},"Portugal":{price:0.10},
+"Brazil":{price:0.09},"Argentina":{price:0.08},"Germany":{price:0.05},"Netherlands":{price:0.03},
+"Norway":{price:0.02},"Japan":{price:0.02},"Colombia":{price:0.018},"Belgium":{price:0.018},
+"Morocco":{price:0.015},"USA":{price:0.012},"Uruguay":{price:0.011},"Mexico":{price:0.011},
+"Switzerland":{price:0.010},"Croatia":{price:0.009},"Ecuador":{price:0.008},"Turkiye":{price:0.007},
+"Senegal":{price:0.007},"Austria":{price:0.006},"Sweden":{price:0.006},"Canada":{price:0.004},
+"South Korea":{price:0.003},"Ghana":{price:0.003},"Bosnia-Herzegovina":{price:0.003},
+"Italy":{price:0.003},"Australia":{price:0.002},"Nigeria":{price:0.002},"Ivory Coast":{price:0.002},
+"Algeria":{price:0.002},"Serbia":{price:0.002},"Poland":{price:0.001},"Ukraine":{price:0.001},
+"Cameroon":{price:0.001},"Chile":{price:0.001},"Egypt":{price:0.001},"Greece":{price:0.001},
+"Mali":{price:0.001},"Paraguay":{price:0.001},"Peru":{price:0.001},"Qatar":{price:0.001},
+"Romania":{price:0.001},"Saudi Arabia":{price:0.001},"Tunisia":{price:0.001},"Uzbekistan":{price:0.001},
+"Venezuela":{price:0.001},"Albania":{price:0.001},"Bulgaria":{price:0.001},"Burkina Faso":{price:0.001},
+"China":{price:0.001},"Czech Republic":{price:0.001},"Denmark":{price:0.001},"Finland":{price:0.001},
+"Gabon":{price:0.001},"Ghana":{price:0.001},"Hungary":{price:0.001},"Iceland":{price:0.001}
 };
 
 function buildPoly(){
