@@ -1,8 +1,10 @@
-# ⚽ 2026 世界杯 H2H 对战预测
+# ⚽ 2026 FIFA World Cup — H2H Match Predictor
+
+> **English:** A Poisson xG model powered by Elo differentials + mystic factors (I Ching / Tao Te Ching) for head-to-head World Cup match prediction and winner betting odds comparison with Polymarket markets.
+
+> **中文：** 基于 Elo 差值的 Poisson xG 模型 + 玄学因子的世界杯对战预测系统
 
 > **Live:** [worldcup.imiaozhan.com](https://worldcup.imiaozhan.com)
->
-> 基于 Elo 差值的 Poisson xG 模型 + 玄学因子的世界杯对战预测系统
 
 ---
 
