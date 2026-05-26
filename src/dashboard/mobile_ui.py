@@ -625,6 +625,14 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
 .pm-val.neu{color:var(--tx2)}
 .pm-legend{display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--tx2)}
 .pm-legend span::before{content:'▪ ';font-size:8px;vertical-align:middle}
+.pm-sum{margin-top:12px;padding:12px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--bl)}
+.pm-sum-tl{font-size:12px;font-weight:600;color:var(--bl);margin-bottom:8px}
+.pm-sum-grp{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pm-sum-row{display:flex;align-items:center;gap:8px;font-size:13px}
+.pm-sum-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pm-sum-val{font-weight:700;font-size:12px;flex-shrink:0}
+.pm-sum-lbl{color:var(--tx2)}
+.pm-sum-empty{font-size:13px;color:var(--tx2);padding:4px 0}
 </style>
 </head>
 <body>
@@ -750,9 +758,11 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:"Inter",-
       <div class="pm-mkt-tl">🏆 冠军投注 / Winner</div>
       <div id="poly-winner"></div>
     </div>
+    <div class="pm-sum" id="poly-sum"></div>
     <div class="pm-legend">
-      <span style="color:var(--gd)">你的概率 &gt; 市场 → 可能价值</span>
-      <span style="color:var(--rd)">你的概率 &lt; 市场 → 可能偏高</span>
+      <span style="color:var(--gr)">●</span><span style="font-size:12px;color:var(--tx2)">你的概率 &gt; 市场&nbsp;</span>
+      <span style="color:var(--rd)">●</span><span style="font-size:12px;color:var(--tx2)">你的概率 &lt; 市场&nbsp;</span>
+      <span style="color:var(--tx2)">●</span><span style="font-size:12px;color:var(--tx2)">|差|&le;2%（中性）</span>
     </div>
   </div>
 </div>
@@ -1122,6 +1132,7 @@ function buildPoly(){
   var el=document.getElementById("poly-winner");
   if(!el)return;
   var rows=[];
+  var valueRows=[];var overRows=[];
   for(var i=0;i<D.length;i++){
     var t=D[i];
     var market=POLY_WINNER[t.country];
@@ -1133,6 +1144,8 @@ function buildPoly(){
     var cls=dev>2?"pos":dev<-2?"neg":"neu";
     var maxP=Math.max(t.final_prob,market.price);
     rows.push({country:t.country,modelPct:modelPct,mktPct:mktPct,dev:dev,devStr:devStr,cls:cls,maxP:maxP,barW:(maxP*100).toFixed(1)});
+    if(dev>2)valueRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct});
+    if(dev<-2)overRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct});
   }
   rows.sort(function(a,b){return b.dev-a.dev;});
   var html="";
@@ -1149,6 +1162,37 @@ function buildPoly(){
     html+='</div>';
   }
   el.innerHTML=html||'<div style="color:var(--tx2);font-size:13px;padding:16px 0">No matching market data</div>';
+
+  // Build summary
+  var sumEl=document.getElementById("poly-sum");
+  if(sumEl){
+    var sumHtml='<div class="pm-sum-tl">📊 博弈结论 / Summary</div>';
+    if(valueRows.length>0){
+      valueRows.sort(function(a,b){return b.dev-a.dev;});
+      sumHtml+='<div class="pm-sum-grp">';
+      for(var vi=0;vi<valueRows.length;vi++){
+        var v=valueRows[vi];
+        sumHtml+='<div class="pm-sum-row"><span class="pm-sum-dot" style="background:var(--gr)"></span><span class="pm-sum-val" style="color:var(--gr)">'+v.devStr+'</span><span class="pm-sum-lbl">'+fl(v.country)+' '+v.country+'</span><span style="color:var(--tx2);font-size:11px">'+v.modelPct+'% vs 市价'+v.mktPct+'%</span></div>';
+      }
+      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">市场对你低估，可考虑买入</div>';
+      sumHtml+='</div>';
+    }
+    if(overRows.length>0){
+      overRows.sort(function(a,b){return a.dev-b.dev;});
+      sumHtml+='<div class="pm-sum-grp">';
+      for(var oi=0;oi<overRows.length;oi++){
+        var o=overRows[oi];
+        sumHtml+='<div class="pm-sum-row"><span class="pm-sum-dot" style="background:var(--rd)"></span><span class="pm-sum-val" style="color:var(--rd)">'+o.devStr+'</span><span class="pm-sum-lbl">'+fl(o.country)+' '+o.country+'</span><span style="color:var(--tx2);font-size:11px">'+o.modelPct+'% vs 市价'+o.mktPct+'%</span></div>';
+      }
+      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">市场对你高估，追高需谨慎</div>';
+      sumHtml+='</div>';
+    }
+    if(valueRows.length===0&&overRows.length===0){
+      sumHtml+='<div class="pm-sum-empty">当前无显著偏离（|差|&le;2%），无明显博弈机会</div>';
+    }
+    sumEl.innerHTML=sumHtml;
+  }
+
   document.getElementById("poly-upd").textContent=new Date().toLocaleString("zh-CN",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"});
 }
 
