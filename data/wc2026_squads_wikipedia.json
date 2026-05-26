@@ -8411,5 +8411,477 @@
     "count": 26,
     "source": "Wikipedia:2026 FIFA World Cup squads",
     "fetch_date": "2026-05-19"
+  },
+  "South Africa": {
+    "players": [
+      {
+        "position": "GK",
+        "name": "Ronwen Williams",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Ricardo Goss",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Sipho Chaine",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Brandon Peterson (soccer)",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Aubrey Modiba",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Khuliso Mudau",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Nkosinathi Sibisi",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Mbekezeli Mbokazi",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Ime Okon",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Samukele Kabini",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Khulumani Ndamane",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Thabang Matuludi",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Thabiso Monyane",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Bradley Cross (soccer)",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Olwethu Makhanya",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Teboho Mokoena (soccer, born 1997)",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Sphephelo Sithole",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Lebohang Maboe",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Thalente Mbatha",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Jayden Adams",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Brooklyn Poggenpoel",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Themba Zwane",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Thapelo Morena",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Lyle Foster",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Evidence Makgopa",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Oswin Appollis",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Iqraam Rayners",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Relebohile Mofokeng",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Thapelo Maseko",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Tshepang Moremi",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Patrick Maswanganyi",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Kamogelo Sebelebele",
+        "age": 2015
+      }
+    ]
+  },
+  "Iraq": {
+    "players": [
+      {
+        "position": "GK",
+        "name": "Jalal Hassan",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Fahad Talib",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Ahmed Basil",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Kumel Al-Rekabe",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Rebin Sulaka",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Manaf Younis",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Merchas Doski",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Hussein Ali (footballer, born 2002)",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Zaid Tahseen",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Frans Putros",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Maitham Jabbar",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Ahmed Yahya",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Mustafa Saadoon (footballer, born 2001)",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Akam Hashim",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Ahmed Maknzi",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Dario Naamo",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Ibrahim Bayesh",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Amir Al-Ammari",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Ali Jasim",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Youssef Amyn",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Zidane Iqbal",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Hasan Abdulkareem",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Marko Farji",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Karrar Nabeel",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Kevin Yakob",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Aimar Sher",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Zaid Ismail",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Peter Gwargis",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Jussef Nasrawe",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Ahmed Qasem",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Aymen Hussein",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Mohanad Ali",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Ali Al-Hamadi",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Ali Yousif",
+        "age": 2015
+      }
+    ]
+  },
+  "Norway": {
+    "players": [
+      {
+        "position": "GK",
+        "name": "Ørjan Nyland",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Morten Thorsby",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Kristoffer Ajer",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Leo Østigård",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "David Møller Wolfe",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Patrick Berg",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Alexander Sørloth",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Sander Berge",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Erling Haaland",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Martin Ødegaard",
+        "age": 2015
+      },
+      {
+        "position": "FW",
+        "name": "Jørgen Strand Larsen",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Sander Tangvik",
+        "age": 2015
+      },
+      {
+        "position": "GK",
+        "name": "Egil Selvik",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Fredrik Aursnes",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Fredrik André Bjørkan",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Marcus Holmgren Pedersen",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Torbjørn Heggem",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Kristian Thorstvedt",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Thelo Aasgaard",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Antonio Nusa",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Andreas Schjelderup",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Oscar Bobb",
+        "age": 2015
+      },
+      {
+        "position": "MF",
+        "name": "Jens Petter Hauge",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Sondre Langås",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Henrik Falchener",
+        "age": 2015
+      },
+      {
+        "position": "DF",
+        "name": "Julian Ryerson",
+        "age": 2015
+      }
+    ]
   }
 }
