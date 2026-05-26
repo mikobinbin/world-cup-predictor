@@ -1190,28 +1190,52 @@ function buildPoly(){
     if(valueRows.length===0&&overRows.length===0){
       sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">当前无显著偏离（|差|&le;1%），无明显博弈机会</div>';
     }
-    // Top 3 recommendation: 模型概率 × 偏差（信心程度 × 价值空间）
-    if(valueRows.length>0){
-      // Score = final_prob * dev (both in percentage points)
-      var scored=valueRows.map(function(v){return {country:v.country,dev:v.dev,devStr:v.devStr,modelPct:v.modelPct,mktPct:v.mktPct,finalProb:v.finalProb,score:(v.finalProb*100)*(v.dev)}});
-      scored.sort(function(a,b){return b.score-a.score;});
-      var top3=scored.slice(0,3);
-      var medals=["🥇","🥈","🥉"];
-      sumHtml+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bg3)">';
-      sumHtml+='<div style="font-size:12px;font-weight:600;color:var(--gr);margin-bottom:8px">🏆 推荐买入 / Top Picks</div>';
-      for(var ti=0;ti<top3.length;ti++){
-        var t3=top3[ti];
-        var starW=Math.round((t3.finalProb/Math.max.apply(null,scored.map(function(s){return s.finalProb})))*100);
-        sumHtml+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">';
-        sumHtml+='<span style="font-size:16px">'+medals[ti]+'</span>';
-        sumHtml+='<span style="font-size:14px;font-weight:600;color:var(--tx)">'+fl(t3.country)+' '+t3.country+'</span>';
-        sumHtml+='<span style="margin-left:auto;font-size:12px;color:var(--tx2)">'+t3.modelPct+'% | 市价'+t3.mktPct+'%</span>';
-        sumHtml+='<span style="font-size:13px;font-weight:700;color:var(--gr)">'+t3.devStr+'</span>';
-        sumHtml+='</div>';
-      }
-      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">模型概率 × 偏差综合排名 | 仅供参考</div>';
+    // Top 3 by model confidence (always show top 3 strongest model predictions)
+    var allScored=[];
+    for(var ai=0;ai<D.length;ai++){
+      var t=D[ai];
+      var mkt=POLY_WINNER[t.country];
+      if(!mkt)continue;
+      var dev2=(t.final_prob-mkt.price)*100;
+      allScored.push({country:t.country,dev:dev2,modelPct:(t.final_prob*100).toFixed(1),mktPct:(mkt.price*100).toFixed(1),finalProb:t.final_prob});
+    }
+    allScored.sort(function(a,b){return b.finalProb-a.finalProb;});
+    var top3Model=allScored.slice(0,3);
+    var medals=["🥇","🥈","🥉"];
+    sumHtml+='<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bg3)">';
+    sumHtml+='<div style="font-size:12px;font-weight:600;color:var(--bl);margin-bottom:8px">🏆 模型预测 / Model Top 3</div>';
+    for(var ti=0;ti<top3Model.length;ti++){
+      var t3=top3Model[ti];
+      var badge="";
+      var valColor="var(--tx2)";
+      if(t3.dev>1){badge='<span style="background:var(--gr);color:#000;font-size:10px;padding:1px 5px;border-radius:4px;margin-left:4px">低估</span>';valColor="var(--gr)"}
+      else if(t3.dev<-1){badge='<span style="background:var(--rd);color:#fff;font-size:10px;padding:1px 5px;border-radius:4px;margin-left:4px">高估</span>';valColor="var(--rd)"}
+      sumHtml+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      sumHtml+='<span style="font-size:16px">'+medals[ti]+'</span>';
+      sumHtml+='<span style="font-size:14px;font-weight:600;color:var(--tx)">'+fl(t3.country)+'</span>';
+      sumHtml+='<span style="font-size:12px;color:var(--tx2)">'+t3.modelPct+'%</span>';
+      sumHtml+='<span style="margin-left:auto;font-size:11px;color:'+valColor+'">'+(t3.dev>=0?"+":"")+t3.dev.toFixed(1)+'%</span>'+badge;
       sumHtml+='</div>';
     }
+
+    // Top 3 by value score: model_prob × deviation
+    if(valueRows.length>0){
+      var scored=valueRows.map(function(v){return {country:v.country,dev:v.dev,devStr:v.devStr,modelPct:v.modelPct,mktPct:v.mktPct,finalProb:v.finalProb,score:(v.finalProb*100)*(v.dev)}});
+      scored.sort(function(a,b){return b.score-a.score;});
+      var top3val=scored.slice(0,3);
+      sumHtml+='<div style="font-size:12px;font-weight:600;color:var(--gr);margin-top:14px;margin-bottom:8px">💰 价值机会 / Value Picks</div>';
+      for(var vi=0;vi<top3val.length;vi++){
+        var v=top3val[vi];
+        sumHtml+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">';
+        sumHtml+='<span style="font-size:14px">'+medals[vi]+'</span>';
+        sumHtml+='<span style="font-size:13px;font-weight:600;color:var(--tx)">'+fl(v.country)+'</span>';
+        sumHtml+='<span style="font-size:11px;color:var(--tx2)">'+v.modelPct+'%→市价'+v.mktPct+'%</span>';
+        sumHtml+='<span style="margin-left:auto;font-size:12px;font-weight:700;color:var(--gr)">'+v.devStr+'</span>';
+        sumHtml+='</div>';
+      }
+      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">模型概率×偏差综合排名 | 仅供参考</div>';
+    }
+    sumHtml+='</div>';
     sumEl.innerHTML=sumHtml;
   }
 
