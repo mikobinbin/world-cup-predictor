@@ -8883,5 +8883,107 @@
         "age": 2015
       }
     ]
+  },
+  "Algeria": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Australia": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Canada": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Ecuador": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Egypt": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "England": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Germany": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Ghana": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Morocco": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Netherlands": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Panama": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Saudi Arabia": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Senegal": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Spain": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Switzerland": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "United States": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
+  },
+  "Uruguay": {
+    "note": "等待 Wikipedia 公布大名单",
+    "players": [],
+    "source": "pending",
+    "fetch_date": "pending"
   }
 }
