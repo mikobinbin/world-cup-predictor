@@ -1141,11 +1141,11 @@ function buildPoly(){
     var mktPct=(market.price*100).toFixed(1);
     var dev=(t.final_prob-market.price)*100;
     var devStr=(dev>=0?"+":"")+dev.toFixed(1)+"%";
-    var cls=dev>2?"pos":dev<-2?"neg":"neu";
+    var cls=dev>1?"pos":dev<-1?"neg":"neu";
     var maxP=Math.max(t.final_prob,market.price);
     rows.push({country:t.country,modelPct:modelPct,mktPct:mktPct,dev:dev,devStr:devStr,cls:cls,maxP:maxP,barW:(maxP*100).toFixed(1)});
-    if(dev>2)valueRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct,finalProb:t.final_prob});
-    if(dev<-2)overRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct});
+    if(dev>1)valueRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct,finalProb:t.final_prob});
+    if(dev<-1)overRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct});
   }
   rows.sort(function(a,b){return b.dev-a.dev;});
   var html="";
@@ -1188,7 +1188,7 @@ function buildPoly(){
       sumHtml+='</div>';
     }
     if(valueRows.length===0&&overRows.length===0){
-      sumHtml+='<div class="pm-sum-empty">当前无显著偏离（|差|&le;2%），无明显博弈机会</div>';
+      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">当前无显著偏离（|差|&le;1%），无明显博弈机会</div>';
     }
     // Top 3 recommendation: 模型概率 × 偏差（信心程度 × 价值空间）
     if(valueRows.length>0){
