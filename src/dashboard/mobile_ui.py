@@ -1190,6 +1190,24 @@ function buildPoly(){
     if(valueRows.length===0&&overRows.length===0){
       sumHtml+='<div class="pm-sum-empty">当前无显著偏离（|差|&le;2%），无明显博弈机会</div>';
     }
+    // Top 3 recommendation
+    if(valueRows.length>0){
+      var top3=valueRows.slice(0,3);
+      var medals=["🥇","🥈","🥉"];
+      sumHtml+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bg3)">';
+      sumHtml+='<div style="font-size:12px;font-weight:600;color:var(--gr);margin-bottom:8px">🏆 推荐买入 / Top Picks</div>';
+      for(var ti=0;ti<top3.length;ti++){
+        var t3=top3[ti];
+        sumHtml+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">';
+        sumHtml+='<span style="font-size:16px">'+medals[ti]+'</span>';
+        sumHtml+='<span style="font-size:14px;font-weight:600;color:var(--tx)">'+fl(t3.country)+' '+t3.country+'</span>';
+        sumHtml+='<span style="margin-left:auto;font-size:12px;color:var(--tx2)">模型'+t3.modelPct+'% | 市价'+t3.mktPct+'%</span>';
+        sumHtml+='<span style="font-size:13px;font-weight:700;color:var(--gr)">'+t3.devStr+'</span>';
+        sumHtml+='</div>';
+      }
+      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">偏差越大潜在价值越高，仅供参考</div>';
+      sumHtml+='</div>';
+    }
     sumEl.innerHTML=sumHtml;
   }
 
