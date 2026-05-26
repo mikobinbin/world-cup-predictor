@@ -1144,7 +1144,7 @@ function buildPoly(){
     var cls=dev>2?"pos":dev<-2?"neg":"neu";
     var maxP=Math.max(t.final_prob,market.price);
     rows.push({country:t.country,modelPct:modelPct,mktPct:mktPct,dev:dev,devStr:devStr,cls:cls,maxP:maxP,barW:(maxP*100).toFixed(1)});
-    if(dev>2)valueRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct});
+    if(dev>2)valueRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct,finalProb:t.final_prob});
     if(dev<-2)overRows.push({country:t.country,dev:dev,devStr:devStr,modelPct:modelPct,mktPct:mktPct});
   }
   rows.sort(function(a,b){return b.dev-a.dev;});
@@ -1190,22 +1190,26 @@ function buildPoly(){
     if(valueRows.length===0&&overRows.length===0){
       sumHtml+='<div class="pm-sum-empty">当前无显著偏离（|差|&le;2%），无明显博弈机会</div>';
     }
-    // Top 3 recommendation
+    // Top 3 recommendation: 模型概率 × 偏差（信心程度 × 价值空间）
     if(valueRows.length>0){
-      var top3=valueRows.slice(0,3);
+      // Score = final_prob * dev (both in percentage points)
+      var scored=valueRows.map(function(v){return {country:v.country,dev:v.dev,devStr:v.devStr,modelPct:v.modelPct,mktPct:v.mktPct,finalProb:v.finalProb,score:(v.finalProb*100)*(v.dev)}});
+      scored.sort(function(a,b){return b.score-a.score;});
+      var top3=scored.slice(0,3);
       var medals=["🥇","🥈","🥉"];
       sumHtml+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bg3)">';
       sumHtml+='<div style="font-size:12px;font-weight:600;color:var(--gr);margin-bottom:8px">🏆 推荐买入 / Top Picks</div>';
       for(var ti=0;ti<top3.length;ti++){
         var t3=top3[ti];
+        var starW=Math.round((t3.finalProb/Math.max.apply(null,scored.map(function(s){return s.finalProb})))*100);
         sumHtml+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">';
         sumHtml+='<span style="font-size:16px">'+medals[ti]+'</span>';
         sumHtml+='<span style="font-size:14px;font-weight:600;color:var(--tx)">'+fl(t3.country)+' '+t3.country+'</span>';
-        sumHtml+='<span style="margin-left:auto;font-size:12px;color:var(--tx2)">模型'+t3.modelPct+'% | 市价'+t3.mktPct+'%</span>';
+        sumHtml+='<span style="margin-left:auto;font-size:12px;color:var(--tx2)">'+t3.modelPct+'% | 市价'+t3.mktPct+'%</span>';
         sumHtml+='<span style="font-size:13px;font-weight:700;color:var(--gr)">'+t3.devStr+'</span>';
         sumHtml+='</div>';
       }
-      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">偏差越大潜在价值越高，仅供参考</div>';
+      sumHtml+='<div style="font-size:11px;color:var(--tx2);margin-top:4px">模型概率 × 偏差综合排名 | 仅供参考</div>';
       sumHtml+='</div>';
     }
     sumEl.innerHTML=sumHtml;
