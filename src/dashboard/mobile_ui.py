@@ -327,6 +327,7 @@ def _load_analysis():
         results.append({
             "country": t.country,
             "elo": sq_dict.get("elo", 1700),
+            "mod_elo": t.mod_elo or sq_dict.get("elo", 1700),  # 因子修正 Elo，同步到 H2H
             "prob": t.final_probability,
             "final_prob": r.mystic_prob if r else t.final_probability,
             "shift": (r.mystic_prob - t.final_probability) if r else 0,
@@ -887,7 +888,7 @@ var H2H_TACTICAL={
 };
 
 function h2hCalc(ta,tb){
-  var eloA=ta.elo||1700,eloB=tb.elo||1700;
+  var eloA=ta.mod_elo||ta.elo||1700,eloB=tb.mod_elo||tb.elo||1700;
   var eDiff=eloA-eloB;
   // Elo-based win probability (no draw)
   var eloWinA=1/(1+Math.pow(10,-eDiff/400));
@@ -945,8 +946,8 @@ function getPlayerMatchups(ta,tb){
 
 
 function buildScorePred(ta, tb, r) {
-    var eloA = ta.elo || 1700;
-    var eloB = tb.elo || 1700;
+    var eloA = ta.mod_elo || ta.elo || 1700;
+    var eloB = tb.mod_elo || tb.elo || 1700;
     var lambdaA = 1.3 + (eloA - 1700) / 500 * 1.0;
     var lambdaB = 1.3 + (eloB - 1700) / 500 * 1.0;
     var shiftA = ta.shift || 0;

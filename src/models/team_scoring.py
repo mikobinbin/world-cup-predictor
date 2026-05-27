@@ -23,6 +23,7 @@ class TeamResult:
     mystic_score: float
     confidence_interval: Tuple[float, float]  # (下限, 上限)
     narrative: str  # 一句话描述
+    mod_elo: float = 0.0  # 因子修正后的有效 Elo（用于 H2H 计算）
 
     def breakdown(self) -> str:
         return f"""
@@ -353,6 +354,7 @@ def score_all_teams(teams: List[Squad],
 
         result = scorer.score_team(team, is_host=is_host,
                                   is_defending_champ=is_def)
+        result.mod_elo = mod_elo  # 供 H2H 计算用
         results.append(result)
 
     # Monte Carlo 模拟（使用 modified Elo）
