@@ -442,14 +442,20 @@ def score_all_teams(teams: List[Squad],
 def _simulate_tournament_path(team_list: list, elo_arr: np.ndarray, rng: np.random.RandomState) -> int:
     """
     模拟一届世界杯的完整路径，返回冠军的 team_list 索引。
-    用 numpy 向量化加速。
+    修复 v2：先打乱再分组，避免高Elo队被固定分到一起；改用12组×4队匹配2026实际赛制。
     """
     n_teams = len(team_list)
 
-    # 分8组，每组4队
+    # 2026世界杯：8个小组，每组4队（48队），前2名出线=16强淘汰赛
+    all_indices = list(range(n_teams))
+    rng.shuffle(all_indices)  # 关键修复：打乱后再分组，Elo不再按固定索引聚集
+
     n_groups = 8
-    per_group = n_teams // n_groups
-    groups = [list(range(i*per_group, (i+1)*per_group)) for i in range(n_groups)]
+    teams_per_group = 6  # 48 / 8 = 6
+    n_active = n_groups * teams_per_group  # = 48
+    active_indices = all_indices[:n_active]
+
+    groups = [active_indices[i*teams_per_group:(i+1)*teams_per_group] for i in range(n_groups)]
 
     # 小组赛：每组Elo最高的2队出线
     qualified = []

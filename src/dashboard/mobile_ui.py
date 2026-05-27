@@ -284,11 +284,19 @@ def _load_analysis():
             "gs_volatility": 0.008,
             "knockout_unc": 0.003,
         },
+        # Brazil: 5次世界杯冠军(1958/62/70/94/2002)，近届持续4强以内，但22年8强意外出局→略低于Argentina
+        "Brazil": {
+            "contrarian": 0.012,
+            "favorite_curse": 0.020,
+            "gs_volatility": 0.006,
+            "knockout_unc": 0.002,
+        },
+        # England: 2024欧洲杯亚军，萨卡/贝林厄姆新生代崛起，心态强势→修正为正值
         "England": {
-            "contrarian": -0.003,
-            "favorite_curse": -0.005,
-            "gs_volatility": -0.002,
-            "knockout_unc": -0.001,
+            "contrarian": 0.012,
+            "favorite_curse": 0.020,
+            "gs_volatility": 0.005,
+            "knockout_unc": 0.002,
         },
     }
 
