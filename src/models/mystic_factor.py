@@ -653,6 +653,12 @@ class MysticFactorEngine:
     UNDERDOG_THRESHOLD = 0.03
     AVOID_THRESHOLD = 0.15
 
+    # Shift scaling: reduces the magnitude of mystical adjustments by 70%.
+    # Rationale: additive shift disproportionately inflates weak teams (e.g., Tunisia +80%)
+    # while barely affecting strong teams. Scale=0.3 keeps rankings ELO-aligned with only
+    # small mystical nudges (weak team boost capped at ~20%, strong team suppression ~5%).
+    SHIFT_SCALE = 0.3
+
     def _calc_contrarian(self, prob: float) -> float:
         if prob > self.CONTRARIAN_HOT_THRESHOLD:
             return -(prob - self.CONTRARIAN_HOT_THRESHOLD) * self.CONTRARIAN_HOT_STRENGTH
@@ -878,7 +884,7 @@ class MysticFactorEngine:
                 knockout_unc += (-wc_total) * 0.10
             # ── 叠加完成 ───────────────────────────────────────
 
-            total_shift = contrarian + gs_volatility + knockout_unc + favorite_curse
+            total_shift = (contrarian + gs_volatility + knockout_unc + favorite_curse) * self.SHIFT_SCALE
             mystic_prob = max(0.001, logical_prob + total_shift)
 
             dims = self._calc_philosophy_dimensions(
