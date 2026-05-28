@@ -89,29 +89,63 @@ def _estimate_mv(pos: str, caps: int, age: int) -> float:
     return round(base * caps_factor * age_factor, 1)
 
 def _build_sample(country: str, elo: float):
-    exp_level = "high" if elo > 1850 else ("medium" if elo > 1750 else "low")
-    params = {
-        "high":   {"mean": 27, "std": 4,  "exp_ratio": 0.7},
-        "medium": {"mean": 26, "std": 5,  "exp_ratio": 0.4},
-        "low":    {"mean": 25, "std": 5,  "exp_ratio": 0.2},
-    }[exp_level]
+    """
+    Deterministic sample generator keyed on country name.
+    Ensures consistent exp_score per ELO band across runs:
+      - elo > 1850 (top tier): 18/23 tournament players -> exp ~0.063
+      - 1750 < elo <= 1850 (mid tier): 12/23 tournament players -> exp ~0.042
+      - elo <= 1750 (low tier): 6/23 tournament players -> exp ~0.021
+    Caps are deterministic per country name (no random variation across restarts).
+    """
+    seed = hash(country) % 1000
+    rng = random.Random(seed)
+
+    if elo > 1850:
+        # 18 experienced (caps 30-150), 5 developing (caps 0-25)
+        caps_bands = [30, 60, 90, 120, 150] * 3 + [60] * 3  # 18
+        caps_bands += [0, 5, 10, 15, 20, 25][:5]              # 5 = 23 total
+        age_mean, age_std = 27, 4
+        age_min, age_max = 22, 34
+        tournaments = ["2022"] * 18 + [[]] * 5
+    elif elo > 1750:
+        # 12 experienced (caps 20-80), 11 developing (caps 0-35)
+        caps_bands = [20, 35, 50, 65, 80] * 2 + [25, 40, 55, 70]  # 14
+        caps_bands += [0, 5, 10, 15, 20, 25, 30, 35, 40][:9]        # 9 = 23 total
+        age_mean, age_std = 26, 5
+        age_min, age_max = 21, 35
+        tournaments = ["2022"] * 12 + [[]] * 11
+    else:
+        # 6 experienced (caps 15-65), 17 youth (caps 0-15)
+        caps_bands = [15, 25, 35, 45, 55, 65]                        # 6
+        extra_youth = [0, 3, 6, 9, 12, 15]
+        for _ in range(2):
+            extra_youth += [0, 3, 6, 9, 12, 15]
+        caps_bands += extra_youth[:17]                                 # 17 = 23 total
+        age_mean, age_std = 25, 5
+        age_min, age_max = 20, 36
+        tournaments = ["2022"] * 6 + [[]] * 17
+
+    rng.shuffle(caps_bands)
     positions = ['GK', 'CB', 'CB', 'LB', 'RB', 'DM', 'CM', 'CM', 'AM', 'LW', 'RW', 'ST']
+    rng.shuffle(positions)
+
     players = []
     for i in range(23):
-        age = max(18, min(38, int(random.gauss(params["mean"], params["std"]))))
-        has_exp = random.random() < params["exp_ratio"]
+        caps = max(0, caps_bands[i] + rng.randint(-5, 5))
+        age = max(age_min, min(age_max, int(rng.gauss(age_mean, age_std))))
+        has_tournament = bool(tournaments[i])
         players.append({
             "name": f"P{i+1}_{country[:3]}",
             "age": age,
-            "position": random.choice(positions),
+            "position": positions[i % len(positions)],
             "club": "Club",
-            "market_value": max(0.5, random.uniform(5, 60)),
-            "national_caps": random.randint(0, 100) if has_exp else random.randint(0, 20),
-            "national_goals": random.randint(0, 30) if has_exp else random.randint(0, 5),
-            "tournaments": ["2022"] if has_exp else [],
+            "market_value": max(0.5, rng.uniform(5, 60)),
+            "national_caps": caps,
+            "national_goals": rng.randint(0, caps // 3) if caps > 0 else 0,
+            "tournaments": ["2022"] if has_tournament else [],
         })
-    coach_hash = hash(country) % 1000 / 1000.0
-    coaching_factor = 0.4 + coach_hash * 0.5
+
+    coaching_factor = 0.4 + (hash(country) % 1000) / 1000.0 * 0.5
     return {
         "country": country,
         "players": players,
