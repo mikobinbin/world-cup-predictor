@@ -3345,247 +3345,6 @@
     "source": "Wikipedia:2026 FIFA World Cup squads",
     "fetch_date": "2026-05-19"
   },
-  "Curaçao": {
-    "players": [
-      {
-        "name": "Eloy Room",
-        "position": "1GK",
-        "number": "",
-        "age": 37,
-        "caps": 70,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Trevor Doornbusch",
-        "position": "1GK",
-        "number": "",
-        "age": 26,
-        "caps": 7,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Tyrick Bodak",
-        "position": "1GK",
-        "number": "",
-        "age": 24,
-        "caps": 4,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Juriën Gaari",
-        "position": "2DF",
-        "number": "",
-        "age": 32,
-        "caps": 58,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Roshon van Eijma",
-        "position": "2DF",
-        "number": "",
-        "age": 28,
-        "caps": 27,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Sherel Floranus",
-        "position": "2DF",
-        "number": "",
-        "age": 27,
-        "caps": 26,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Joshua Brenet",
-        "position": "2DF",
-        "number": "",
-        "age": 32,
-        "caps": 17,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Shurandy Sambo",
-        "position": "2DF",
-        "number": "",
-        "age": 24,
-        "caps": 7,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Armando Obispo",
-        "position": "2DF",
-        "number": "",
-        "age": 27,
-        "caps": 4,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Riechedly Bazoer",
-        "position": "2DF",
-        "number": "",
-        "age": 29,
-        "caps": 3,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Deveron Fonville",
-        "position": "2DF",
-        "number": "",
-        "age": 23,
-        "caps": 0,
-        "goals": 0,
-        "club": ""
-      },
-      {
-        "name": "Leandro Bacuna",
-        "position": "3MF",
-        "number": "",
-        "age": 34,
-        "caps": 70,
-        "goals": 16,
-        "club": ""
-      },
-      {
-        "name": "Juninho Bacuna",
-        "position": "3MF",
-        "number": "",
-        "age": 28,
-        "caps": 47,
-        "goals": 14,
-        "club": ""
-      },
-      {
-        "name": "Godfried Roemeratoe",
-        "position": "3MF",
-        "number": "",
-        "age": 26,
-        "caps": 26,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Kevin Felida",
-        "position": "3MF",
-        "number": "",
-        "age": 26,
-        "caps": 19,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Livano Comenencia",
-        "position": "3MF",
-        "number": "",
-        "age": 22,
-        "caps": 18,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Ar'jany Martha",
-        "position": "3MF",
-        "number": "",
-        "age": 22,
-        "caps": 8,
-        "goals": 2,
-        "club": ""
-      },
-      {
-        "name": "Tyrese Noslin",
-        "position": "3MF",
-        "number": "",
-        "age": 23,
-        "caps": 5,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Kenji Gorré",
-        "position": "4FW",
-        "number": "",
-        "age": 31,
-        "caps": 37,
-        "goals": 6,
-        "club": ""
-      },
-      {
-        "name": "Brandley Kuwas",
-        "position": "4FW",
-        "number": "",
-        "age": 33,
-        "caps": 34,
-        "goals": 2,
-        "club": ""
-      },
-      {
-        "name": "Gervane Kastaneer",
-        "position": "4FW",
-        "number": "",
-        "age": 30,
-        "caps": 27,
-        "goals": 9,
-        "club": ""
-      },
-      {
-        "name": "Jeremy Antonisse",
-        "position": "4FW",
-        "number": "",
-        "age": 24,
-        "caps": 25,
-        "goals": 3,
-        "club": ""
-      },
-      {
-        "name": "Jearl Margaritha",
-        "position": "4FW",
-        "number": "",
-        "age": 26,
-        "caps": 21,
-        "goals": 5,
-        "club": ""
-      },
-      {
-        "name": "Jürgen Locadia",
-        "position": "4FW",
-        "number": "",
-        "age": 32,
-        "caps": 12,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Sontje Hansen",
-        "position": "4FW",
-        "number": "",
-        "age": 24,
-        "caps": 5,
-        "goals": 1,
-        "club": ""
-      },
-      {
-        "name": "Tahith Chong",
-        "position": "4FW",
-        "number": "",
-        "age": 26,
-        "caps": 4,
-        "goals": 2,
-        "club": ""
-      }
-    ],
-    "count": 26,
-    "source": "Wikipedia:2026 FIFA World Cup squads",
-    "fetch_date": "2026-05-19"
-  },
   "Ivory Coast": {
     "players": [
       {
@@ -8851,5 +8610,253 @@
     "players": [],
     "source": "pending",
     "fetch_date": "pending"
+  },
+  "Norway": {
+    "players": [],
+    "count": 54,
+    "source": "Wikipedia:2026 FIFA World Cup squads",
+    "fetch_date": "2026-05-19",
+    "team_name": "Norway"
+  },
+  "Curaçao": {
+    "players": [
+      {
+        "name": "Eloy Room",
+        "position": "1GK",
+        "number": "",
+        "age": 37,
+        "caps": 70,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Trevor Doornbusch",
+        "position": "1GK",
+        "number": "",
+        "age": 26,
+        "caps": 7,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Tyrick Bodak",
+        "position": "1GK",
+        "number": "",
+        "age": 24,
+        "caps": 4,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Juriën Gaari",
+        "position": "2DF",
+        "number": "",
+        "age": 32,
+        "caps": 58,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Roshon van Eijma",
+        "position": "2DF",
+        "number": "",
+        "age": 28,
+        "caps": 27,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Sherel Floranus",
+        "position": "2DF",
+        "number": "",
+        "age": 27,
+        "caps": 26,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Joshua Brenet",
+        "position": "2DF",
+        "number": "",
+        "age": 32,
+        "caps": 17,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Shurandy Sambo",
+        "position": "2DF",
+        "number": "",
+        "age": 24,
+        "caps": 7,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Armando Obispo",
+        "position": "2DF",
+        "number": "",
+        "age": 27,
+        "caps": 4,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Riechedly Bazoer",
+        "position": "2DF",
+        "number": "",
+        "age": 29,
+        "caps": 3,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Deveron Fonville",
+        "position": "2DF",
+        "number": "",
+        "age": 23,
+        "caps": 0,
+        "goals": 0,
+        "club": ""
+      },
+      {
+        "name": "Leandro Bacuna",
+        "position": "3MF",
+        "number": "",
+        "age": 34,
+        "caps": 70,
+        "goals": 16,
+        "club": ""
+      },
+      {
+        "name": "Juninho Bacuna",
+        "position": "3MF",
+        "number": "",
+        "age": 28,
+        "caps": 47,
+        "goals": 14,
+        "club": ""
+      },
+      {
+        "name": "Godfried Roemeratoe",
+        "position": "3MF",
+        "number": "",
+        "age": 26,
+        "caps": 26,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Kevin Felida",
+        "position": "3MF",
+        "number": "",
+        "age": 26,
+        "caps": 19,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Livano Comenencia",
+        "position": "3MF",
+        "number": "",
+        "age": 22,
+        "caps": 18,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Ar'jany Martha",
+        "position": "3MF",
+        "number": "",
+        "age": 22,
+        "caps": 8,
+        "goals": 2,
+        "club": ""
+      },
+      {
+        "name": "Tyrese Noslin",
+        "position": "3MF",
+        "number": "",
+        "age": 23,
+        "caps": 5,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Kenji Gorré",
+        "position": "4FW",
+        "number": "",
+        "age": 31,
+        "caps": 37,
+        "goals": 6,
+        "club": ""
+      },
+      {
+        "name": "Brandley Kuwas",
+        "position": "4FW",
+        "number": "",
+        "age": 33,
+        "caps": 34,
+        "goals": 2,
+        "club": ""
+      },
+      {
+        "name": "Gervane Kastaneer",
+        "position": "4FW",
+        "number": "",
+        "age": 30,
+        "caps": 27,
+        "goals": 9,
+        "club": ""
+      },
+      {
+        "name": "Jeremy Antonisse",
+        "position": "4FW",
+        "number": "",
+        "age": 24,
+        "caps": 25,
+        "goals": 3,
+        "club": ""
+      },
+      {
+        "name": "Jearl Margaritha",
+        "position": "4FW",
+        "number": "",
+        "age": 26,
+        "caps": 21,
+        "goals": 5,
+        "club": ""
+      },
+      {
+        "name": "Jürgen Locadia",
+        "position": "4FW",
+        "number": "",
+        "age": 32,
+        "caps": 12,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Sontje Hansen",
+        "position": "4FW",
+        "number": "",
+        "age": 24,
+        "caps": 5,
+        "goals": 1,
+        "club": ""
+      },
+      {
+        "name": "Tahith Chong",
+        "position": "4FW",
+        "number": "",
+        "age": 26,
+        "caps": 4,
+        "goals": 2,
+        "club": ""
+      }
+    ],
+    "count": 26,
+    "source": "Wikipedia:2026 FIFA World Cup squads",
+    "fetch_date": "2026-05-19"
   }
 }
