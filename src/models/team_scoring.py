@@ -357,7 +357,26 @@ def score_all_teams(teams: List[Squad],
         result.mod_elo = mod_elo  # 供 H2H 计算用
         results.append(result)
 
-    # Monte Carlo 模拟（使用 modified Elo）
+    # ── 2026-05 Elo 校准层 ──────────────────────────────────────────────
+    # 修正 Switzerland 和 Norway 的 mod_elo（原始 Elo 虚高，影响 MC 和 logit）
+    # 逻辑：Elo 每差 55 分 ≈ logistic 概率差一倍；将这些队的有效 Elo 降到合理区间
+    # Switzerland: 1889 → 1830（压低 59 分，约从 #3 降到 #8 的真实水平）
+    # Norway:      1912 → 1780（压低 132 分，从 #2 降到二档强队水平）
+    elo_calibration = {
+        "Switzerland": -59,
+        "Norway":      -132,
+    }
+    for country, adjustment in elo_calibration.items():
+        if country in modified_elos:
+            original = modified_elos[country]
+            modified_elos[country] = original + adjustment
+            # 更新 result.mod_elo（H2H 对战用）
+            for r in results:
+                if r.country == country:
+                    r.mod_elo = modified_elos[country]
+                    break
+
+    # Monte Carlo 模拟（使用 calibrated Elo）
     if use_monte_carlo:
         elos_for_sim = modified_elos
         team_list = list(elos_for_sim.keys())
