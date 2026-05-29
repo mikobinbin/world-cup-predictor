@@ -49,6 +49,8 @@ QUALIFIED_TEAMS = [
     "Uzbekistan", "Jordan",
     "USA", "Mexico", "Canada", "Panama", "Costa Rica", "Honduras", "Jamaica", "Haiti",
     "New Zealand",
+    # 2026-05 补充漏掉的已晋级队
+    "Norway",
 ]
 
 HOST_COUNTRY = "USA"
